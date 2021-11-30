@@ -29,9 +29,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        // $empresas = DB::table('empresa')
-        //             ->where('empresa.estado','0')
-        //             ->get();
+        $empresas = DB::table('empresa')
+                    ->where('empresa.estado','0')
+                    ->get();
         // $idusuario = Auth::user()->id;
         // $reporte = DB::table('reporte')
         //                 ->where('reporte.Tipo','empresa')
@@ -39,7 +39,7 @@ class HomeController extends Controller
         // $reporte = Reporte::find($reporte->id);
         // $reporte->IdUsuario = $idusuario;
         // $reporte->save();
-        // $monedas = DB::table('moneda')->get();
+        $monedas = DB::table('moneda')->get();
         // $access = self::verificacion();
         // if($access=="none"){
         // Auth::logout();
@@ -55,7 +55,7 @@ class HomeController extends Controller
 
         // return redirect()->route('gotomenu', ['idempresa' => Auth::user()->idempresa]);
         // }
-        return view('Empresas.empresas');
+        return view('Empresas.empresas',compact('empresas','monedas'));
     }
 
     //utilitarios

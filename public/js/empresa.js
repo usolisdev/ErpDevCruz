@@ -4,7 +4,7 @@ var KTDatatablesServerSide = function () {
     // Shared variables
     var table;
     var dt;
-    var ListOrden = [];
+    var ListData = [];
 
     // Private functions
     var initListarEmpresas = function () {
@@ -62,7 +62,7 @@ var KTDatatablesServerSide = function () {
                     render: function (data, type, row) {
 
                         return`
-                                <a data-kt-action="sector_edit" data-bs-toggle="modal" data-bs-target="#kt_modal_add_sector" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
+                                <a data-kt-action="empresa_edit" data-bs-toggle="modal" data-bs-target="#kt_modal_add_empresa" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
                                     <!--begin::Svg Icon | path: icons/duotune/art/art005.svg-->
                                     <span class="svg-icon svg-icon-3" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -89,12 +89,17 @@ var KTDatatablesServerSide = function () {
              // Add data array
              createdRow: function (row, data, dataIndex) {
 
-                // var l = [];
+                var l = [];
 
-                // l['IdSector'] = data.IdSector;
-                // l['NumOrden'] = data.Orden;
+                l['IdEmpresa'] = data.id;
+                l['Nombre'] = data.Nombre;
+                l['Nit'] = data.Nit;
+                l['Sigla'] = data.Sigla;
+                l['Telefono'] = data.Telefono;
+                l['Correo'] = data.Correo;
+                l['Direccion'] = data.Direccion;
 
-                // ListOrden.push(l);
+                ListData.push(l);
             }
 
         });
@@ -103,11 +108,11 @@ var KTDatatablesServerSide = function () {
 
         dt.on('draw', function () {
 
-            // initToggleToolbar(),
-            // toggleToolbars(),
+            initToggleToolbar(),
+            toggleToolbars(),
 
             $('[data-bs-toggle="tooltip"]').tooltip(),
-            //  initEditSector(),
+            initEditEmpresa(),
             //  initStateSector(),
             //  initRedirectMultimedia(),
             //  initRedirectEntradas(),
@@ -123,14 +128,13 @@ var KTDatatablesServerSide = function () {
 
         var t, e, o, n, r, i, b;
 
+        i = new bootstrap.Modal(document.querySelector("#kt_modal_add_empresa")),
+        r = document.querySelector("#kt_modal_add_empresa_form"),
+        b = document.querySelector("#btnAddempresa"),
 
-        i = new bootstrap.Modal(document.querySelector("#kt_modal_add_sector")),
-        r = document.querySelector("#kt_modal_add_sector_form"),
-        b = document.querySelector("#btnAddsector"),
-
-        t = r.querySelector("#kt_modal_add_sector_submit"),
-        e = r.querySelector("#kt_modal_add_sector_cancel"),
-        o = r.querySelector("#kt_modal_add_sector_close"),
+        t = r.querySelector("#kt_modal_add_empresa_submit"),
+        e = r.querySelector("#kt_modal_add_empresa_cancel"),
+        o = r.querySelector("#kt_modal_add_empresa_close"),
 
         n = FormValidation.formValidation(r, {
             fields: {
@@ -141,10 +145,17 @@ var KTDatatablesServerSide = function () {
                         }
                     }
                 },
-                TxtTitulo: {
+                TxtNit: {
                     validators: {
                         notEmpty: {
-                            message: "El Titulo es Obligatorio"
+                            message: "El Nit es Obligatorio"
+                        }
+                    }
+                },
+                TxtSigla: {
+                    validators: {
+                        notEmpty: {
+                            message: "La Sigla es Obligatoria"
                         }
                     }
                 },
@@ -169,74 +180,36 @@ var KTDatatablesServerSide = function () {
 
         b.addEventListener("click", (function(){
 
-            r.querySelector('[name="TitleModal"]').innerText = "Agregar Sector";
+            r.querySelector('[name="TitleModal"]').innerText = "Agregar Empresa";
 
-            r.querySelector('[name="TxtNombre"]').value = "";
-            r.querySelector('[name="TxtTitulo"]').value = "";
-
-            if (ListOrden.length == 0) {
-                r.querySelector('[name="TxtOrden"]').value = 1;
-            }
-            else {
-                r.querySelector('[name="TxtOrden"]').value = ListOrden[ListOrden.length - 1].NumOrden + 1;
-            }
-
-            r.querySelector('[name="TxtTexto"]').value = "";
-
+            r.reset();
             t.value = "";
-            //r.reset();
         })),
 
         t.addEventListener("click", (function(e) {
 
             var urlfinal;
 
-            var ExisteOrden = false;
             var MensajeSwalValidacion;
 
             var Nombre = r.querySelector('[name="TxtNombre"]').value;
-            var Titulo = r.querySelector('[name="TxtTitulo"]').value;
-            var Orden = r.querySelector('[name="TxtOrden"]').value;
-            var Texto = r.querySelector('[name="TxtTexto"]').value;
+            var Nit = r.querySelector('[name="TxtNit"]').value;
+            var Sigla = r.querySelector('[name="TxtSigla"]').value;
+            var Telefono = r.querySelector('[name="TxtTelefono"]').value;
+            var Correo = r.querySelector('[name="TxtCorreo"]').value;
+            var Direccion = r.querySelector('[name="TxtDireccion"]').value;
 
-            var IdRowSector = "";
+            var Niveles = r.querySelector('[name="comboniveles"]').value;
+            var Moneda = r.querySelector('[name="combomoneda"]').value;
+
+            var IdRowEmpresa = "";
 
             if (t.value != "") {
 
-                IdRowSector = t.value;
+                IdRowEmpresa = t.value;
             }
 
-            ListOrden.forEach(v => {
-
-                if (IdRowSector == "") {
-
-                    if (v.NumOrden == Orden) {
-
-                        ExisteOrden = true;
-                        MensajeSwalValidacion = "Este numero de Orden ya fue Asignado";
-                    }
-
-                }
-                else {
-
-                    if (v.IdSector != IdRowSector) {
-
-                        if (v.NumOrden == Orden) {
-
-                            ExisteOrden = true;
-                            MensajeSwalValidacion = "Este numero de Orden ya fue Asignado";
-                        }
-
-                    }
-
-                }
-            });
-
-            if (ExisteOrden == false) {
-
-                MensajeSwalValidacion = "Complete los campos obligatorios";
-            }
-
+            MensajeSwalValidacion = "Complete los campos obligatorios";
 
             var TipoMensajeSwal = "";
             var MensajeSwal = "";
@@ -245,17 +218,20 @@ var KTDatatablesServerSide = function () {
 
             e.preventDefault(), n && n.validate().then((function(e) {
 
-                "Valid" == e && ExisteOrden == false? (t.setAttribute("data-kt-indicator", "on"), t.disabled = !0,
+                "Valid" == e? (t.setAttribute("data-kt-indicator", "on"), t.disabled = !0,
 
                     formData = new FormData(),
-                    formData.append('IdUserActual', 1),
-                    formData.append('Nombre',Nombre),
-                    formData.append('Titulo',Titulo),
-                    formData.append('NumOrden',Orden),
-                    formData.append('Texto',Texto),
-                    formData.append('IdSector',IdRowSector),
+                    formData.append('NombreEmpresa', Nombre),
+                    formData.append('NitEmpresa', Nit),
+                    formData.append('SiglaEmpresa', Sigla),
+                    formData.append('DireccionEmpresa', Direccion),
+                    formData.append('TelefonoEmpresa', Telefono),
+                    formData.append('CorreoEmpresa', Correo),
+                    formData.append('NivelesEmpresa', Niveles),
+                    formData.append('MonedaEmpresa', Moneda),
+                    formData.append('IdEmpresa',IdRowEmpresa),
 
-                    urlfinal= urlBase + "/RegistrarActualizarSector",
+                    urlfinal= urlBase + "empresas/crear-actualizar-empresa",
                    // dataValue = JSON.stringify(datalinea),
 
                     $.ajax({
@@ -318,10 +294,9 @@ var KTDatatablesServerSide = function () {
                     text: MensajeSwalValidacion,
                     icon: "error",
                     buttonsStyling: !1,
-                    confirmButtonText: "Aceptar",
-                    customClass: {
-                        confirmButton: "btn btn-primary"
-                    }
+                    showConfirmButton: false,
+                    buttonsStyling: false,
+                    timer: 1000
                 })
             }))
         })),
@@ -340,18 +315,18 @@ var KTDatatablesServerSide = function () {
         }))
     }
 
-    // Editar Sector
-    var initEditSector = function() {
+    // Editar Empresa
+    var initEditEmpresa = function() {
 
         var t, e, o, n, r, i;
 
         //i = new bootstrap.Modal(document.querySelector("#kt_modal_add_linea"));
-        r = document.querySelector("#kt_modal_add_sector_form");
+        r = document.querySelector("#kt_modal_add_empresa_form");
         //t = r.querySelector("#kt_modal_add_customer_header");
-        t = r.querySelector("#kt_modal_add_sector_submit");
+        t = r.querySelector("#kt_modal_add_empresa_submit");
         //o = r.querySelector("#idLineaTable");
 
-        const EditButton = document.querySelectorAll('[data-kt-action="sector_edit"]');
+        const EditButton = document.querySelectorAll('[data-kt-action="empresa_edit"]');
 
         EditButton.forEach(d => {
 
@@ -360,20 +335,34 @@ var KTDatatablesServerSide = function () {
                 // Select parent row
                 const parent = e.target.closest('tr');
 
-                // Get sector datos
-                const sectorId = parent.querySelectorAll('td')[0].children[0].children[0].value;
-                const sectorNombre = parent.querySelectorAll('td')[1].innerText;
-                const sectorTitulo = parent.querySelectorAll('td')[2].innerText;
-                const sectorTexto = parent.querySelectorAll('td')[3].innerText;
-                const sectorOrden = parent.querySelectorAll('td')[4].innerText;
+                // Get Empresa datos
+                const empresaId = parent.querySelectorAll('td')[0].children[0].children[0].value;
+                var Nombre, Nit, Sigla, Telefono, Correo, Direccion;
 
-                // Insert datos sector
-                r.querySelector('[name="TitleModal"]').innerText = "Editar Sector";
-                r.querySelector('[name="TxtNombre"]').value = sectorNombre;
-                r.querySelector('[name="TxtTitulo"]').value = sectorTitulo;
-                r.querySelector('[name="TxtOrden"]').value = sectorOrden;
-                r.querySelector('[name="TxtTexto"]').value = sectorTexto;
-                t.value = sectorId;
+                ListData.forEach(item => {
+
+                    if (item.IdEmpresa == empresaId) {
+
+                        Nombre = item.Nombre;
+                        Nit = item.Nit;
+                        Sigla = item.Sigla;
+                        Telefono = item.Telefono;
+                        Correo = item.Correo;
+                        Direccion = item.Direccion;
+                    }
+
+                });
+
+                // Insert datos Empresa
+                r.querySelector('[name="TitleModal"]').innerText = "Editar Empresa";
+
+                r.querySelector('[name="TxtNombre"]').value = Nombre;
+                r.querySelector('[name="TxtNit"]').value = Nit;
+                r.querySelector('[name="TxtSigla"]').value = Sigla;
+                r.querySelector('[name="TxtTelefono"]').value = Telefono;
+                r.querySelector('[name="TxtCorreo"]').value = Correo;
+                r.querySelector('[name="TxtDireccion"]').value = Direccion;
+                t.value = empresaId;
 
             });
 
@@ -511,11 +500,11 @@ var KTDatatablesServerSide = function () {
     var initToggleToolbar = function () {
         // Toggle selected action toolbar
         // Select all checkboxes
-        const container = document.querySelector('#kt_datatable_sectores');
+        const container = document.querySelector('#kt_datatable_empresas');
         const checkboxes = container.querySelectorAll('[type="checkbox"]');
 
         // Select elements
-        const deleteSelected = document.querySelector('[data-kt-sector-table-select="delete_selected"]');
+        const deleteSelected = document.querySelector('[data-kt-empresa-table-select="delete_selected"]');
 
         // Toggle delete selected toolbar
         checkboxes.forEach(c => {
@@ -531,7 +520,7 @@ var KTDatatablesServerSide = function () {
         deleteSelected.addEventListener('click', function () {
 
             // Select refreshed checkbox DOM elements
-            var datasector;
+            var dataempresa;
             var urlfinal;
             var dataValue;
             var ArrayRowSelect=[];
@@ -547,7 +536,7 @@ var KTDatatablesServerSide = function () {
             })
 
             Swal.fire({
-                text: "¿Esta seguro que quiere eliminar los sectores seleccionados?",
+                text: "¿Esta seguro que quiere eliminar las empresas seleccionadas?",
                 icon: "warning",
                 showCancelButton: true,
                 buttonsStyling: false,
@@ -562,20 +551,20 @@ var KTDatatablesServerSide = function () {
                 if (result.value) {
 
                     Swal.fire({
-                        text: "Eliminando sectores seleccionados",
+                        text: "Eliminando empresas seleccionadas",
                         icon: "info",
                         buttonsStyling: false,
                         showConfirmButton: false
                     });
 
                     //Sent Ajax
-                    datasector = {
+                    dataempresa = {
 
                         IdRowSelected: ArrayRowSelect
                     },
 
-                    urlfinal= urlBase + "/EliminarSectores",
-                    dataValue = JSON.stringify(datasector),
+                    urlfinal= urlBase + "empresas/eliminar-empresa",
+                    dataValue = JSON.stringify(dataempresa),
 
                     $.ajax({
                         type: "POST",
@@ -587,7 +576,7 @@ var KTDatatablesServerSide = function () {
                             Swal.close();
 
                             Swal.fire({
-                                text: "Sectores Eliminados!.",
+                                text: "Empresas Eliminadas!.",
                                 icon: "success",
                                 buttonsStyling: false,
                                 showConfirmButton: false,
@@ -619,10 +608,10 @@ var KTDatatablesServerSide = function () {
     // Toggle toolbars
     var toggleToolbars = function () {
         // Define variables
-        const container = document.querySelector('#kt_datatable_sectores');
-        const toolbarBase = document.querySelector('[data-kt-sectores-table-toolbar="base"]');
-        const toolbarSelected = document.querySelector('[data-kt-sectores-table-toolbar="selected"]');
-        const selectedCount = document.querySelector('[data-kt-sectores-table-select="selected_count"]');
+        const container = document.querySelector('#kt_datatable_empresas');
+        const toolbarBase = document.querySelector('[data-kt-empresas-table-toolbar="base"]');
+        const toolbarSelected = document.querySelector('[data-kt-empresas-table-toolbar="selected"]');
+        const selectedCount = document.querySelector('[data-kt-empresas-table-select="selected_count"]');
 
         // Select refreshed checkbox DOM elements
         const allCheckboxes = container.querySelectorAll('tbody [type="checkbox"]');
@@ -651,7 +640,7 @@ var KTDatatablesServerSide = function () {
     }
 
     var handleSearchDatatable = function () {
-        const filterSearch = document.querySelector('[data-kt-sectores-table-filter="search"]');
+        const filterSearch = document.querySelector('[data-kt-empresas-table-filter="search"]');
 
         filterSearch.addEventListener('keyup', function (e) {
 
@@ -664,9 +653,9 @@ var KTDatatablesServerSide = function () {
         init: function () {
 
             initListarEmpresas();
-            // initAgregarActualizar();
+            initAgregarActualizar();
 
-            // handleSearchDatatable();
+            handleSearchDatatable();
         }
     }
 }();

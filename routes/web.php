@@ -36,14 +36,14 @@ Route::post('empresas/TraerEmpresa', [
     'as'	=> 'Traer-empresa',
     'uses'	=> 'EmpresaController@TraerEmpresa'
 ])->middleware('auth');
-Route::post('empresas/crear-empresa', [
-    'as'	=> 'crear-empresa',
-    'uses'	=> 'EmpresaController@GuardarEmpresa'
+Route::post('empresas/crear-actualizar-empresa', [
+    'as'	=> 'crear-actualizar-empresa',
+    'uses'	=> 'EmpresaController@GuardarActualizarEmpresa'
 ])->middleware('auth');
-Route::post('empresas/actualizar-empresa', [
-    'as'	=> 'actualizar-empresa',
-    'uses'	=> 'EmpresaController@EditarEmpresa'
-])->middleware('auth');
+// Route::post('empresas/actualizar-empresa', [
+//     'as'	=> 'actualizar-empresa',
+//     'uses'	=> 'EmpresaController@EditarEmpresa'
+// ])->middleware('auth');
 Route::post('empresas/eliminar-empresa', [
     'as'	=> 'eliminar-empresa',
     'uses'	=> 'EmpresaController@EliminarEmpresa'
