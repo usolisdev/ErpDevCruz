@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use DateTime;
 use Throwable;
+use App\Empresa;
 use App\Reporte;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 
 class HomeController extends Controller
 {
@@ -57,6 +59,31 @@ class HomeController extends Controller
         // }
         return view('Empresas.empresas',compact('empresas','monedas'));
     }
+
+    public function menu($idempresa){
+        try{
+          $empresa = Empresa::find($idempresa);
+          $EmpresaSigla = $empresa->Sigla;
+          $EmpresaNombre = $empresa->Nombre;
+          $idusuario = Auth::user()->id;
+          $reportecuenta = DB::table('reporte')
+                              ->where('reporte.Tipo','cuenta')
+                              ->first();
+          $reportecuenta = Reporte::find($reportecuenta->id);
+          $reportecuenta->Reporte_id = $idempresa;
+          $reportecuenta->IdUsuario = $idusuario;
+          $reportecuenta->save();
+
+          if(Auth::user()->TipoUsuario==1 || Auth::user()->idempresa == $empresa->id){
+            return view('menu',compact('idempresa','EmpresaSigla','EmpresaNombre'));
+          }else{
+            return Redirect::back();
+          }
+        }
+        catch(Throwable $e){
+          dd($e);
+        }
+      }
 
     //utilitarios
     public function verificacion($vista=0){

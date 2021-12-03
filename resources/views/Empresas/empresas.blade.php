@@ -10,6 +10,7 @@
     <!--end::Page Vendor Stylesheets-->
 @endsection
 
+
 @section('scripts')
 	<!--begin::Javascript-->
     <!--begin::Page Vendors Javascript(used by this page)-->
@@ -17,71 +18,64 @@
     <script src="{{ asset('js/empresa.js')}}"></script>
     <!--end::Javascript-->
 
-
-    {{-- <script src="assets/js/custom/modals/new-target.js"></script>
-    <script src="assets/js/custom/widgets.js"></script>
-    <script src="assets/js/custom/apps/chat/chat.js"></script>
-    <script src="assets/js/custom/modals/create-app.js"></script>
-    <script src="assets/js/custom/modals/upgrade-plan.js"></script> --}}
-
 @endsection
-
-@section('content')
 
 @section('Pagetitle')
 
-<h1 class="text-dark fw-bolder my-1 fs-3 lh-1">Listado de Empresas</h1>
-<!--begin::Breadcrumb-->
-<ul class="breadcrumb fw-bold fs-8 my-1">
-    <li class="breadcrumb-item text-dark">Empresas</li>
-    {{-- <li class="breadcrumb-item text-muted">Entradas</li>
-    <li class="breadcrumb-item text-muted">Multimedia</li> --}}
-</ul>
-<!--end::Breadcrumb-->
+    <h1 class="text-dark fw-bolder my-1 fs-3 lh-1">Listado de Empresas</h1>
+    <!--begin::Breadcrumb-->
+    <ul class="breadcrumb fw-bold fs-8 my-1">
+        <li class="breadcrumb-item text-dark">Empresas</li>
+        {{-- <li class="breadcrumb-item text-muted">Entradas</li>
+        <li class="breadcrumb-item text-muted">Multimedia</li> --}}
+    </ul>
+    <!--end::Breadcrumb-->
 @endsection
 
 @section('MenuPrimary')
 
-<div class="menu-item py-3">
-    <a class="menu-link active menu-center" href="" title="Empresas" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
-        <span class="menu-icon me-0">
-            <i class="las la-home fs-1"></i>
-        </span>
-    </a>
-</div>
+    <div class="menu-item py-3">
+        <a class="menu-link active menu-center" href="" title="Empresas" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+            <span class="menu-icon me-0">
+                <i class="las la-home fs-1"></i>
+            </span>
+        </a>
+    </div>
 
-{{-- <div data-kt-menu-trigger="click" data-kt-menu-placement="right-start" class="menu-item py-3 menu-dropdown">
-    <span class="menu-link menu-center" title="" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right" data-bs-original-title="Pagina">
-        <span class="menu-icon me-0">
-            <i class="bi bi-layers fs-2"></i>
+    {{-- <div data-kt-menu-trigger="click" data-kt-menu-placement="right-start" class="menu-item py-3 menu-dropdown">
+        <span class="menu-link menu-center" title="" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right" data-bs-original-title="Pagina">
+            <span class="menu-icon me-0">
+                <i class="bi bi-layers fs-2"></i>
+            </span>
         </span>
-    </span>
-    <div class="menu-sub menu-sub-dropdown w-225px px-1 py-4" style="z-index: 105; position: fixed; inset: 0px auto auto 0px; margin: 0px; transform: translate(100px, 234px);" data-popper-placement="right-start">
-        <div class="menu-item">
-            <div class="menu-content">
-                <span class="menu-section fs-5 fw-bolder ps-1 py-1">Contenido Pagina</span>
+        <div class="menu-sub menu-sub-dropdown w-225px px-1 py-4" style="z-index: 105; position: fixed; inset: 0px auto auto 0px; margin: 0px; transform: translate(100px, 234px);" data-popper-placement="right-start">
+            <div class="menu-item">
+                <div class="menu-content">
+                    <span class="menu-section fs-5 fw-bolder ps-1 py-1">Contenido Pagina</span>
+                </div>
+            </div>
+            <div class="menu-item">
+                <a class="menu-link" href="">
+                    <span class="menu-bullet">
+                        <span class="bullet bullet-dot"></span>
+                    </span>
+                    <span class="menu-title">Sectores</span>
+                </a>
             </div>
         </div>
-        <div class="menu-item">
-            <a class="menu-link" href="">
-                <span class="menu-bullet">
-                    <span class="bullet bullet-dot"></span>
-                </span>
-                <span class="menu-title">Sectores</span>
-            </a>
-        </div>
     </div>
-</div>
 
-<div class="menu-item py-3">
-    <a class="menu-link menu-center" href="" title="Configuracion" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
-        <span class="menu-icon me-0">
-            <i class="fas fa-cogs fs-1"></i>
-        </span>
-    </a>
-</div> --}}
+    <div class="menu-item py-3">
+        <a class="menu-link menu-center" href="" title="Configuracion" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+            <span class="menu-icon me-0">
+                <i class="fas fa-cogs fs-1"></i>
+            </span>
+        </a>
+    </div> --}}
 
 @endsection
+
+@section('content')
 
 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
 <!--begin::Container-->
@@ -214,7 +208,7 @@
                                     <label class="required fs-6 fw-bold mb-2">Numero de Nit</label>
                                     <!--end::Label-->
                                     <!--begin::Input-->
-                                    <input class="form-control form-control-solid" placeholder="" name="TxtNit" />
+                                    <input class="form-control form-control-solid" placeholder="" id="kt_inputmask_nit" name="TxtNit" />
                                     <!--end::Input-->
                                 </div>
                                 <!--end::Col-->

@@ -72,7 +72,7 @@ var KTDatatablesServerSide = function () {
                                     </span>
                                     <!--end::Svg Icon-->
                                 </a>
-                                <a data-kt-action="Gestionar_entradas" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Gestionar Entradas">
+                                <a data-kt-action="Gestionar_empresa" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Gestionar">
                                     <!--begin::Svg Icon | path: icons/duotune/art/art005.svg-->
                                     <span class="svg-icon svg-icon-3">
                                         <svg width="16" height="19" viewBox="0 0 16 19" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -115,7 +115,7 @@ var KTDatatablesServerSide = function () {
             initEditEmpresa(),
             //  initStateSector(),
             //  initRedirectMultimedia(),
-            //  initRedirectEntradas(),
+            initRedirectEntradas(),
 
             KTMenu.createInstances()
         });
@@ -148,9 +148,18 @@ var KTDatatablesServerSide = function () {
                 TxtNit: {
                     validators: {
                         notEmpty: {
-                            message: "El Nit es Obligatorio"
-                        }
-                    }
+                            message: "El Nit es Obligatorio",
+                        },
+                        stringLength: {
+                            min: 15,
+                            max: 15,
+                            message: "El Nit debe ser de 15 digitos",
+                        },
+                        regexp: {
+                            regexp: /^[0-9_]+$/,
+                            message: "El Nit solo debe ser numeros",
+                        },
+                    },
                 },
                 TxtSigla: {
                     validators: {
@@ -159,19 +168,37 @@ var KTDatatablesServerSide = function () {
                         }
                     }
                 },
+                TxtCorreo: {
+                    validators: {
+                        emailAddress: {
+                            message: "No es una direccion de Correo"
+                        },
+                    }
+                },
             },
 
             plugins: {
                 trigger: new FormValidation.plugins.Trigger,
+                submitButton: new FormValidation.plugins.SubmitButton(),
+                defaultSubmit: new FormValidation.plugins.DefaultSubmit(),
                 bootstrap: new FormValidation.plugins.Bootstrap5({
                     rowSelector: ".fv-row",
                     eleInvalidClass: "",
                     eleValidClass: ""
-                })
+                }),
+                // icon: new FormValidation.plugins.Icon({
+                //     valid: 'fa fa-check',
+                //     invalid: 'fa fa-times',
+                //     validating: 'fa fa-refresh',
+                // }),
             }
         }),
 
-       // Validacion Numeric Input
+       //Validacion Nit Input
+        // Inputmask({
+        //     "mask" : "999999999999999"
+        // }).mask("#kt_inputmask_nit");
+
         // Inputmask("decimal",{
         //     "mask": "9",
         //     "repeat": 10,
@@ -473,7 +500,7 @@ var KTDatatablesServerSide = function () {
     // ButtonRedirecEntradas
     var initRedirectEntradas = function() {
 
-        const GestionCateButton = document.querySelectorAll('[data-kt-action="Gestionar_entradas"]');
+        const GestionCateButton = document.querySelectorAll('[data-kt-action="Gestionar_empresa"]');
 
         GestionCateButton.forEach(d => {
 
@@ -483,14 +510,11 @@ var KTDatatablesServerSide = function () {
                 // Select parent row
                 const parent = e.target.closest('tr');
 
-                // Get sector datos
-                const sectorId = parent.querySelectorAll('td')[0].children[0].children[0].value;
+                // Get empresa datos
+                const empresaId = parent.querySelectorAll('td')[0].children[0].children[0].value;
 
                 // RediretPagina
-                window.location = urlBase + "entradas/"+ sectorId;
-
-
-
+                window.location = urlBase + "menu/"+ empresaId;
             });
 
         });
