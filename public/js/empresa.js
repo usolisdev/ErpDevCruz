@@ -115,7 +115,7 @@ var KTDatatablesServerSide = function () {
             initEditEmpresa(),
             //  initStateSector(),
             //  initRedirectMultimedia(),
-            initRedirectEntradas(),
+            initRedirectMenu(),
 
             KTMenu.createInstances()
         });
@@ -178,7 +178,7 @@ var KTDatatablesServerSide = function () {
             },
 
             plugins: {
-                trigger: new FormValidation.plugins.Trigger,
+                trigger: new FormValidation.plugins.Trigger(),
                 submitButton: new FormValidation.plugins.SubmitButton(),
                 defaultSubmit: new FormValidation.plugins.DefaultSubmit(),
                 bootstrap: new FormValidation.plugins.Bootstrap5({
@@ -497,8 +497,8 @@ var KTDatatablesServerSide = function () {
         });
     }
 
-    // ButtonRedirecEntradas
-    var initRedirectEntradas = function() {
+    // ButtonRedirecMenu
+    var initRedirectMenu = function() {
 
         const GestionCateButton = document.querySelectorAll('[data-kt-action="Gestionar_empresa"]');
 

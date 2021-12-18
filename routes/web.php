@@ -98,10 +98,27 @@ Route::get('empresas/repempexcel', [
             'as'	=> 'crear-usuario',
             'uses'	=> 'UsuariosController@GuardarUsuario'
         ])->middleware('auth');
-        Route::post('usuarios/actualizar-usuario', [
-            'as'	=> 'actualizar-usuario',
-            'uses'	=> 'UsuariosController@EditarUsuario'
+        // Route::post('usuarios/actualizar-usuario', [
+        //     'as'	=> 'actualizar-usuario',
+        //     'uses'	=> 'UsuariosController@EditarUsuario'
+        // ])->middleware('auth');
+        Route::post('usuarios/actualizar-datoscuenta', [
+            'as'	=> 'actualizar-datoscuenta',
+            'uses'	=> 'UsuariosController@ActualizarDatosCuenta'
         ])->middleware('auth');
+        Route::post('usuarios/actualizar-datospersonales', [
+            'as'	=> 'actualizar-datospersonales',
+            'uses'	=> 'UsuariosController@ActualizarDatosPersonales'
+        ])->middleware('auth');
+        Route::post('usuarios/actualizar-iniciosesion-correo', [
+            'as'	=> 'actualizar-iniciosesion-correo',
+            'uses'	=> 'UsuariosController@ActualizarInicioSesionCorreo'
+        ])->middleware('auth');
+        Route::post('usuarios/actualizar-iniciosesion-contra', [
+            'as'	=> 'actualizar-iniciosesion-contra',
+            'uses'	=> 'UsuariosController@ActualizarInicioSesionContra'
+        ])->middleware('auth');
+
         Route::post('usuarios/actualizar-permisos-usuario', [
             'as'	=> 'actualizar-permisos-usuario',
             'uses'	=> 'UsuariosController@actualizarpermisos'
