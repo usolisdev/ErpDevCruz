@@ -74,6 +74,75 @@ Route::get('empresas/repempexcel', [
         'uses'	=> 'EmpresaController@GuardarAgenda'
     ])->middleware('auth');
 
+/***************Permisos*******************/
+		/***************Modulos*******************/
+        Route::get('seguridad/modulos/{idempresa}', [
+            'as'	=> 'listar-modulos',
+            'uses'	=> 'PermisosController@listarmodulos'
+        ])->middleware('auth');
+        Route::post('seguridad/traermodulos', [
+            'as'	=> 'traer-modulos',
+            'uses'	=> 'PermisosController@traermodulos'
+        ])->middleware('auth');
+        Route::post('seguridad/actualizarmodulos', [
+            'as'	=> 'actualizarmodulos',
+            'uses'	=> 'PermisosController@actualizarmodulos'
+        ])->middleware('auth');
+        // Route::get('seguridad/repemp', [
+        // 	'as'	=> 'empresas-reporte',
+        // 	'uses'	=> 'PermisosController@reporteEmpresa'
+        // ])->middleware('auth');
+    /***************permisos-usuarios*******************/
+        Route::get('seguridad/lpermisos/{idempresa?}', [
+            'as'	=> 'listar-permisos',
+            'uses'	=> 'PermisosController@listarpermisos'
+        ])->middleware('auth');
+        Route::post('seguridad/traerpermisos', [
+            'as'	=> 'traerpermisos',
+            'uses'	=> 'PermisosController@traerpermisos'
+        ])->middleware('auth');
+        Route::post('seguridad/actualizarpermisos', [
+            'as'	=> 'actualizarpermisos',
+            'uses'	=> 'PermisosController@actualizarpermisos'
+        ])->middleware('auth');
+        // Route::get('seguridad/repemp', [
+        // 	'as'	=> 'empresas-reporte',
+        // 	'uses'	=> 'PermisosController@reporteEmpresa'
+        // ])->middleware('auth');
+    /***************Membresias*******************/
+        Route::get('seguridad/membresias/{idempresa?}', [
+            'as'	=> 'lmembresias',
+            'uses'	=> 'PermisosController@lmembresias'
+        ])->middleware('auth');
+        Route::post('seguridad/traermembresias', [
+            'as'	=> 'traermembresias',
+            'uses'	=> 'PermisosController@traermembresias'
+        ])->middleware('auth');
+        Route::post('seguridad/traermembresia', [
+            'as'	=> 'traermembresia',
+            'uses'	=> 'PermisosController@traermembresia'
+        ])->middleware('auth');
+        Route::post('seguridad/crearmembresia', [
+            'as'	=> 'crearmembresia',
+            'uses'	=> 'PermisosController@crearmembresia'
+        ])->middleware('auth');
+        Route::post('seguridad/cancelarmembresia', [
+            'as'	=> 'cancelarmembresia',
+            'uses'	=> 'PermisosController@cancelarmembresia'
+        ])->middleware('auth');
+        Route::post('seguridad/actualizarmembresia', [
+            'as'	=> 'actualizarmembresia',
+            'uses'	=> 'PermisosController@actualizarmembresia'
+        ])->middleware('auth');
+        Route::get('seguridadmem/repmemb/{idempresa?}', [
+            'as'	=> 'membresias-reporte',
+            'uses'	=> 'PermisosController@reporteMemb'
+        ])->middleware('auth');
+        Route::get('seguridadmem/repmembexcel/{idempresa?}', [
+            'as'	=> 'membresias-reporteexcel',
+            'uses'	=> 'PermisosController@downloadExcelmemb'
+        ])->middleware('auth');
+
 /***************CRM*******************/
 	/***************Personas*******************/
 		/***************

@@ -42,36 +42,44 @@
         </a>
     </div>
 
-    {{-- <div data-kt-menu-trigger="click" data-kt-menu-placement="right-start" class="menu-item py-3 menu-dropdown">
-        <span class="menu-link menu-center" title="" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right" data-bs-original-title="Pagina">
+    <div data-kt-menu-trigger="click" data-kt-menu-placement="right-start" class="menu-item py-3">
+        <span class="menu-link menu-center" title="" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right" data-bs-original-title="Gestion">
             <span class="menu-icon me-0">
-                <i class="bi bi-layers fs-2"></i>
+                <i class="bi bi-gear fs-2"></i>
             </span>
         </span>
-        <div class="menu-sub menu-sub-dropdown w-225px px-1 py-4" style="z-index: 105; position: fixed; inset: 0px auto auto 0px; margin: 0px; transform: translate(100px, 234px);" data-popper-placement="right-start">
+        <div class="menu-sub menu-sub-dropdown w-225px px-1 py-4">
             <div class="menu-item">
                 <div class="menu-content">
-                    <span class="menu-section fs-5 fw-bolder ps-1 py-1">Contenido Pagina</span>
+                    <span class="menu-section fs-5 fw-bolder ps-1 py-1">Gestionar</span>
                 </div>
             </div>
             <div class="menu-item">
-                <a class="menu-link" href="">
-                    <span class="menu-bullet">
-                        <span class="bullet bullet-dot"></span>
+                <a class="menu-link" href="" title="" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right" data-bs-original-title="">
+                    <span class="menu-icon">
+                        <i class="las la-users fs-1"></i>
                     </span>
-                    <span class="menu-title">Sectores</span>
+                    <span class="menu-title">Usuarios</span>
+                </a>
+            </div>
+            <div class="menu-item">
+                <a class="menu-link" href="" title="" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right" data-bs-original-title="">
+                    <span class="menu-icon">
+                        <i class="las la-ticket-alt fs-1"></i>
+                    </span>
+                    <span class="menu-title">Membresias</span>
+                </a>
+            </div>
+            <div class="menu-item">
+                <a class="menu-link" href="{{ route('listar-permisos') }}" title="" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right" data-bs-original-title="">
+                    <span class="menu-icon">
+                        <i class="las la-key fs-1"></i>
+                    </span>
+                    <span class="menu-title">Accesos</span>
                 </a>
             </div>
         </div>
     </div>
-
-    <div class="menu-item py-3">
-        <a class="menu-link menu-center" href="" title="Configuracion" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
-            <span class="menu-icon me-0">
-                <i class="fas fa-cogs fs-1"></i>
-            </span>
-        </a>
-    </div> --}}
 
 @endsection
 
