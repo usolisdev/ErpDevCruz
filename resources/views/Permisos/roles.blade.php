@@ -232,7 +232,7 @@
                             <ul class="nav nav-tabs nav-pills flex-row border-0 me-5 mb-3 mb-md-1 mt-2 ms-4 fs-6">
                                 <li class="nav-item me-2 mb-md-2" id="rcustomer" data-kt-action="Acceso_select">
                                     <a class="nav-link active btn btn-flex btn-light-danger px-9" data-bs-toggle="tab">
-                                        <i class="fas fa-photo-video fs-2"></i>
+                                        <i class="bi bi-ui-checks fs-2"></i>
                                         <span class="d-flex flex-column align-items-start">
                                             <span class="fs-4">Personalizado</span>
                                         </span>
@@ -240,7 +240,7 @@
                                 </li>
                                 <li class="nav-item me-2 mb-md-2" id="radmin" data-kt-action="Acceso_select">
                                     <a class="nav-link btn btn-flex btn-light-warning px-9" data-bs-toggle="tab">
-                                        <i class="fab fa-youtube fs-2"></i>
+                                        <i class="las la-user-tie fs-1"></i>
                                         <span class="d-flex flex-column align-items-start">
                                             <span class="fs-4">Administrador</span>
                                         </span>
@@ -248,7 +248,7 @@
                                 </li>
                                 <li class="nav-item me-2 mb-md-2" id="rvendedor" data-kt-action="Acceso_select">
                                     <a class="nav-link btn btn-flex btn-light-success px-9" data-bs-toggle="tab">
-                                        <i class="fab fa-youtube fs-2"></i>
+                                        <i class="las la-cash-register fs-1"></i>
                                         <span class="d-flex flex-column align-items-start">
                                             <span class="fs-4">Vendedor</span>
                                         </span>
