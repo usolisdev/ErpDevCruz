@@ -26,6 +26,13 @@ class vistausuario extends Model
     protected $table = 'vistausuario';
 
     /**
+     * Indicates if the IDs are auto-incrementing.
+     * 
+     * @var bool
+     */
+    public $incrementing = false;
+
+    /**
      * @var array
      */
     protected $fillable = ['idvista', 'idusuario', 'tipoacceso', 'estado', 'created_at', 'updated_at'];

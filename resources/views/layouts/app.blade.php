@@ -24,6 +24,7 @@
     <link href="{{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
 
     <link href="{{ asset('assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css"/>
+
     <!--end::Global Stylesheets Bundle-->
 
 
@@ -249,10 +250,10 @@
 
     <!--begin::Javascript-->
 		<!--begin::Global Javascript Bundle(used by all pages)-->
-
+		
 		<script src="{{ asset('assets/plugins/global/plugins.bundle.js') }}"></script>
 		<script src="{{ asset('assets/js/scripts.bundle.js') }}"></script>
-
+		<script src = "http://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js" ></script>
         <script src="{{ asset('js/general.js')}}"></script>
 
         @yield('scripts')

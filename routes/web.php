@@ -28,34 +28,34 @@ Route::get('/',[
 ]);
 
 /***************Empresas*******************/
-Route::get('empresas/listarempresas', [
-    'as'	=> 'listar-empresas',
-    'uses'	=> 'EmpresaController@listarempresas'
-])->middleware('auth');
-Route::post('empresas/TraerEmpresa', [
-    'as'	=> 'Traer-empresa',
-    'uses'	=> 'EmpresaController@TraerEmpresa'
-])->middleware('auth');
-Route::post('empresas/crear-actualizar-empresa', [
-    'as'	=> 'crear-actualizar-empresa',
-    'uses'	=> 'EmpresaController@GuardarActualizarEmpresa'
-])->middleware('auth');
-// Route::post('empresas/actualizar-empresa', [
-//     'as'	=> 'actualizar-empresa',
-//     'uses'	=> 'EmpresaController@EditarEmpresa'
-// ])->middleware('auth');
-Route::post('empresas/eliminar-empresa', [
-    'as'	=> 'eliminar-empresa',
-    'uses'	=> 'EmpresaController@EliminarEmpresa'
-])->middleware('auth');
-Route::get('empresas/repemp', [
-    'as'	=> 'empresas-reporte',
-    'uses'	=> 'EmpresaController@reporteEmpresa'
-])->middleware('auth');
-Route::get('empresas/repempexcel', [
-    'as'	=> 'empresas-reporteexcel',
-    'uses'	=> 'EmpresaController@downloadExcelempresas'
-])->middleware('auth');
+    Route::get('empresas/listarempresas', [
+        'as'	=> 'listar-empresas',
+        'uses'	=> 'EmpresaController@listarempresas'
+    ])->middleware('auth');
+    Route::post('empresas/TraerEmpresa', [
+        'as'	=> 'Traer-empresa',
+        'uses'	=> 'EmpresaController@TraerEmpresa'
+    ])->middleware('auth');
+    Route::post('empresas/crear-actualizar-empresa', [
+        'as'	=> 'crear-actualizar-empresa',
+        'uses'	=> 'EmpresaController@GuardarActualizarEmpresa'
+    ])->middleware('auth');
+    // Route::post('empresas/actualizar-empresa', [
+    //     'as'	=> 'actualizar-empresa',
+    //     'uses'	=> 'EmpresaController@EditarEmpresa'
+    // ])->middleware('auth');
+    Route::post('empresas/eliminar-empresa', [
+        'as'	=> 'eliminar-empresa',
+        'uses'	=> 'EmpresaController@EliminarEmpresa'
+    ])->middleware('auth');
+    Route::get('empresas/repemp', [
+        'as'	=> 'empresas-reporte',
+        'uses'	=> 'EmpresaController@reporteEmpresa'
+    ])->middleware('auth');
+    Route::get('empresas/repempexcel', [
+        'as'	=> 'empresas-reporteexcel',
+        'uses'	=> 'EmpresaController@downloadExcelempresas'
+    ])->middleware('auth');
 /***************Agenda*******************/
     Route::get('empresas/agendaadministrador/{idempresa}', [
         'as'	=> 'Agendaadmin',
@@ -74,24 +74,130 @@ Route::get('empresas/repempexcel', [
         'uses'	=> 'EmpresaController@GuardarAgenda'
     ])->middleware('auth');
 
+/***************Configuracion*******************/
+    /***************Parametros*******************/
+        /***************Sucursales*******************/
+            Route::post('sucursales/listadesucursales', [
+                'as'    => 'listadesucursales',
+                'uses'  => 'SucursalController@listadesucursales'
+            ])->middleware('auth');
+            Route::post('sucursales/TraerSucursal', [
+                'as'    => 'Traer-Sucursal',
+                'uses'  => 'SucursalController@TraerSucursal'
+            ])->middleware('auth');
+            Route::get('sucursales/listarsucursales/{idempresa}', [
+                'as'    => 'listar-sucursal',
+                'uses'  => 'SucursalController@lsucursal'
+            ])->middleware('auth');
+            Route::post('sucursales/crear-sucursal', [
+                'as'    => 'crear-sucursal',
+                'uses'  => 'SucursalController@GuardarSucursal'
+            ])->middleware('auth');
+            Route::post('sucursales/actualizar-sucursal', [
+                'as'    => 'actualizar-sucursal',
+                'uses'  => 'SucursalController@EditarSucursal'
+            ])->middleware('auth');
+            Route::post('sucursales/eliminar-sucursal', [
+                'as'    => 'eliminar-sucursal',
+                'uses'  => 'SucursalController@EliminarSucursal'
+            ])->middleware('auth');
+            Route::get('sucursales/repsucursal/{idempresa}', [
+                'as'    => 'sucursales-reporte',
+                'uses'  => 'SucursalController@reporteSucursal'
+            ])->middleware('auth');
+            Route::get('sucursales/repsucursalexcel/{idempresa}', [
+                'as'    => 'sucursales-repsucursalexcel',
+                'uses'  => 'SucursalController@downloadExcelSucursal'
+            ])->middleware('auth');
+        /***************Puntos de Facturacion*******************/
+            Route::post('puntosfacturacion/listadepuntosdefacturacion', [
+                'as'    => 'listadepuntosdefacturacion',
+                'uses'  => 'SucursalController@listadepuntosdefacturacion'
+            ])->middleware('auth');
+            Route::post('puntosfacturacion/TraerPuntoFacturacion', [
+                'as'    => 'Traer-PuntoFacturacion',
+                'uses'  => 'SucursalController@TraerPuntoFacturacion'
+            ])->middleware('auth');
+            Route::get('puntosfacturacion/{idempresa}/{idsucursal}', [
+                'as'    => 'listar-puntosfacturacion',
+                'uses'  => 'SucursalController@lpuntosdefacturacion'
+            ])->middleware('auth');
+            Route::post('puntosfacturacion/crear-puntofacturacion', [
+                'as'    => 'crear-puntofacturacion',
+                'uses'  => 'SucursalController@GuardarPuntodeFacturacion'
+            ])->middleware('auth');
+            Route::post('puntosfacturacion/actualizar-puntofacturacion', [
+                'as'    => 'actualizar-puntofacturacion',
+                'uses'  => 'SucursalController@EditarPuntodeFacturacion'
+            ])->middleware('auth');
+            Route::post('puntosfacturacion/eliminar-puntofacturacion', [
+                'as'    => 'eliminar-puntofacturacion',
+                'uses'  => 'SucursalController@EliminarPuntodeFacturacion'
+            ])->middleware('auth');
+            Route::get('puntosfacturacion/reppfacturacion/{idempresa}/{idsucursal}', [
+                'as'    => 'puntosfacturacion-reporte',
+                'uses'  => 'SucursalController@reportePFacturacion'
+            ])->middleware('auth');
+            Route::get('puntosfacturacion/reppfactexcel/{idempresa}/{idsucursal}', [
+                'as'    => 'puntosfacturacion-reppfactexcel',
+                'uses'  => 'SucursalController@downloadExcelPFacturacion'
+            ])->middleware('auth');
+        /***************Dosificacion*******************/
+            Route::post('sucursales/listadedosificacion', [
+                'as'    => 'listadedosificacion',
+                'uses'  => 'SucursalController@listadedosificacion'
+            ])->middleware('auth');
+            Route::post('sucursales/TraerDosificacion', [
+                'as'    => 'Traer-Dosificacion',
+                'uses'  => 'SucursalController@TraerDosificacion'
+            ])->middleware('auth');
+            Route::get('sucursales/dosificacion/{idempresa}/{idsucursal}/{idpfacturacion}', [
+                'as'    => 'listar-sucursal-dosificacion',
+                'uses'  => 'SucursalController@ldosificacionsuc'
+            ])->middleware('auth');
+            Route::get('sucursales/dosificacion/{idempresa}', [
+                'as'    => 'listar-dosificacion',
+                'uses'  => 'SucursalController@ldosificacion'
+            ])->middleware('auth');
+            Route::post('sucursales/crear-dosificacion', [
+                'as'    => 'crear-dosificacion',
+                'uses'  => 'SucursalController@GuardarDosificacion'
+            ])->middleware('auth');
+            Route::post('sucursales/actualizar-dosificacion', [
+                'as'    => 'actualizar-dosificacion',
+                'uses'  => 'SucursalController@EditarDosificacion'
+            ])->middleware('auth');
+            Route::post('sucursales/eliminar-dosificacion', [
+                'as'    => 'eliminar-dosificacion',
+                'uses'  => 'SucursalController@EliminarDosificacion'
+            ])->middleware('auth');
+            Route::get('sucursales/repdosificacion/{idempresa}/{idsucursal}/{idpfacturacion}', [
+                'as'    => 'dosificacion-reporte',
+                'uses'  => 'SucursalController@reporteDosificacion'
+            ])->middleware('auth');
+            Route::get('sucursales/repdosifiexcel/{idempresa}/{idsucursal}/{idpfacturacion}', [
+                'as'    => 'sucursales-repdosifiexcel',
+                'uses'  => 'SucursalController@downloadExcelDosificacion'
+            ])->middleware('auth');
+
 /***************Permisos*******************/
 		/***************Modulos*******************/
-        Route::get('seguridad/modulos/{idempresa}', [
-            'as'	=> 'listar-modulos',
-            'uses'	=> 'PermisosController@listarmodulos'
-        ])->middleware('auth');
-        Route::post('seguridad/traermodulos', [
-            'as'	=> 'traer-modulos',
-            'uses'	=> 'PermisosController@traermodulos'
-        ])->middleware('auth');
-        Route::post('seguridad/actualizarmodulos', [
-            'as'	=> 'actualizarmodulos',
-            'uses'	=> 'PermisosController@actualizarmodulos'
-        ])->middleware('auth');
-        // Route::get('seguridad/repemp', [
-        // 	'as'	=> 'empresas-reporte',
-        // 	'uses'	=> 'PermisosController@reporteEmpresa'
-        // ])->middleware('auth');
+            Route::get('seguridad/modulos/{idempresa}', [
+                'as'	=> 'listar-modulos',
+                'uses'	=> 'PermisosController@listarmodulos'
+            ])->middleware('auth');
+            Route::post('seguridad/traermodulos', [
+                'as'	=> 'traer-modulos',
+                'uses'	=> 'PermisosController@traermodulos'
+            ])->middleware('auth');
+            Route::post('seguridad/actualizarmodulos', [
+                'as'	=> 'actualizarmodulos',
+                'uses'	=> 'PermisosController@actualizarmodulos'
+            ])->middleware('auth');
+            // Route::get('seguridad/repemp', [
+            // 	'as'	=> 'empresas-reporte',
+            // 	'uses'	=> 'PermisosController@reporteEmpresa'
+            // ])->middleware('auth');
     /***************permisos-usuarios*******************/
         Route::get('seguridad/lpermisos/{idempresa?}', [
             'as'	=> 'listar-permisos',
@@ -145,8 +251,6 @@ Route::get('empresas/repempexcel', [
 
 /***************CRM*******************/
 	/***************Personas*******************/
-		/***************
-		 * *******************/
         Route::get('usuarios/{idempresa?}', [
             'as'	=> 'usuarios',
             'uses'	=> 'UsuariosController@lusuarios'
