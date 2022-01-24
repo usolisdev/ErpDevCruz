@@ -169,21 +169,21 @@ class PermisosController extends Controller
 		public function listarpermisos($idempresa=0){
 			try{
 				$empresas = DB::table('empresa')
-	                      ->where('empresa.estado','1')
+	                      ->where('empresa.estado','0')
 	                      ->get();
 				$idusuario = Auth::user()->id;
 
 				$tipous = DB::table('tipousuario')->get();
 				$tipoac = DB::table('tipodeacceso')->get();
 				$usuarios = DB::table('users')
-							->where('users.estado','!=','0')
+							->where('users.estado','!=','1')
 	                      	->get();
 	            if($idempresa!=0){
 	            	$empresa = Empresa::find($idempresa);
 	        		$EmpresaSigla = $empresa->Sigla;
 	        		$EmpresaNombre = $empresa->Nombre;
 	        		$usuarios = DB::table('users')
-							->where([['users.estado','!=','0'],['users.idempresa',$empresa->id]])
+							->where([['users.estado','!=','1'],['users.idempresa',$empresa->id]])
 	                      	->get();
 	        		$idusuario = Auth::user()->id;
 	        		$access = self::verificacion(5);
@@ -949,17 +949,17 @@ class PermisosController extends Controller
 	// membresias
 		public function lmembresias($idempresa=0){
 			try{
-				if(\Auth::user()->TipoUsuario==1){
+				if(Auth::user()->TipoUsuario==1){
 					if($idempresa!=0){
 						$empresa = Empresa::find($idempresa);
 			        	$EmpresaSigla = $empresa->Sigla;
-			        	$idusuario = \Auth::user()->id;
+			        	$idusuario = Auth::user()->id;
 			        	$empresas = DB::table('empresa')
 		                      ->where('empresa.estado','0')
 		                      ->get();
 			            return view('Permisos.membresia',compact('idempresa','EmpresaSigla','idusuario','empresas'));
 					}else{
-			        	$idusuario = \Auth::user()->id;
+			        	$idusuario = Auth::user()->id;
 			        	$empresas = DB::table('empresa')
 		                      ->where('empresa.estado','0')
 		                      ->get();
@@ -970,7 +970,7 @@ class PermisosController extends Controller
 					return redirect()->back()->with(compact('sinacceso'));
 				}
 
-			}catch(Exception $e){
+			}catch(Throwable $e){
 				return response()->json([
 					'mensaje'			=> $e,
 					'titulo'			=> "error",
@@ -982,7 +982,7 @@ class PermisosController extends Controller
 
 		public function traermembresias(Request $request){
 			try{
-				$idusuario = \Auth::user()->id;
+				$idusuario = Auth::user()->id;
 				$empresas = DB::table('empresa')
 	                      ->where('empresa.estado','0')
 	                      ->get();
@@ -997,7 +997,7 @@ class PermisosController extends Controller
 	            }
 
 				return response()->json([
-					'mensaje'			=> "Usuario Encontrado Exitosamente",
+					'mensaje'			=> "Membresias Encontradas Exitosamente",
 					'titulo'			=> "Success",
 					'tipoMensaje'		=> "success",
 					'botonConfirmacion'	=> "ok",
@@ -1005,7 +1005,7 @@ class PermisosController extends Controller
 	                'Membresias'        => $membresias
 				]);
 			}
-			catch(Exception $e){
+			catch(Throwable $e){
 				return response()->json([
 					'mensaje'			=> $e,
 					'titulo'			=> "error",
@@ -1053,6 +1053,8 @@ class PermisosController extends Controller
 
 		public function crearmembresia(Request $request){
 			try{
+                $hoy = Carbon::now('America/La_Paz');
+
 				$empresas = DB::table('empresa')
 	                      ->where('empresa.estado','0')
 	                      ->get();
@@ -1060,52 +1062,84 @@ class PermisosController extends Controller
 	                      ->where([['membresia.estado','1'],['membresia.idempresa',$request->input('Empresa')]])
 	                      ->get();
 	            $feci=$request->input('Fei');
-	            $fecf=$request->input('Fef');
-	            if($fecf<=$feci){
+	            //$fecf=$request->input('Fef');
+	            if($feci < $hoy){
 	        		return response()->json([
-						'mensaje'			=> "la fecha de fin no puede ser menor que la inicio",
+						'mensaje'			=> "La fecha de inicio debe ser mayor a la fecha actual",
 						'titulo'			=> "Error",
 						'tipoMensaje'		=> "error",
 						'botonConfirmacion'	=> "ok"
 					]);
 	        	}
-	            if(count($membresias)>0){
-	            	return response()->json([
-						'mensaje'			=> "ya existe una membresia habilitada para esta empresa.",
-						'titulo'			=> "error",
-						'tipoMensaje'		=> "error",
-						'botonConfirmacion'	=> "ok"
-					]);
-	            }else{
-	            	$membresia = new membresia();
-	            	$membresia->idempresa=$request->input('Empresa');
-	            	$membresia->fechainicio=$request->input('Fei');
-	            	$membresia->fechafin=$request->input('Fef');
-	            	$membresia->estado=1;
-	            	$guardar = $membresia->save();
-					if($guardar){
-						return response()->json([
-							'mensaje'			=> "Membresia creada exitosamente",
-							'titulo'			=> "Success",
-							'tipoMensaje'		=> "success",
-							'botonConfirmacion'	=> "ok",
-							'Empresas'          => $empresas,
-							'Membresia'         => $membresia
-						]);
-		            }else{
-		            	return response()->json([
-							'mensaje'			=> "Error al tratar de crear la membresia",
-							'titulo'			=> "error",
-							'tipoMensaje'		=> "error",
-							'botonConfirmacion'	=> "ok"
-						]);
-		            }
-	            }
+                if ($request->input('IdMembresia') != "" || $request->input('IdMembresia') != null) {
+
+                    $empresas = DB::table('empresa')
+	                      ->where('empresa.estado','0')
+	                      ->get();
+
+                    $membresia = membresia::find($request->input('IdMembresia'));
+                    $membresia->idempresa=$request->input('Empresa');
+                    $membresia->fechainicio=$request->input('Fei');
+                    $membresia->fechafin=$request->input('Fef');
+                    $guardar = $membresia->save();
+                    if($guardar){
+                        return response()->json([
+                            'mensaje'			=> "Membresia actualizada exitosamente",
+                            'titulo'			=> "Success",
+                            'tipoMensaje'		=> "success",
+                            'botonConfirmacion'	=> "ok",
+                            'Empresas'          => $empresas,
+                            'Membresia'         => $membresia
+                        ]);
+                    }else{
+                        return response()->json([
+                            'mensaje'			=> "Error al tratar de actualizar la membresia",
+                            'titulo'			=> "Error",
+                            'tipoMensaje'		=> "error",
+                            'botonConfirmacion'	=> "ok"
+                        ]);
+                    }
+                }
+                else {
+
+                    if(count($membresias)>0){
+                        return response()->json([
+                            'mensaje'			=> "ya existe una membresia habilitada para esta empresa.",
+                            'titulo'			=> "Error",
+                            'tipoMensaje'		=> "error",
+                            'botonConfirmacion'	=> "ok"
+                        ]);
+                    }else{
+                        $membresia = new membresia();
+                        $membresia->idempresa=$request->input('Empresa');
+                        $membresia->fechainicio=$request->input('Fei');
+                        $membresia->fechafin=$request->input('Fef');
+                        $membresia->estado=1;
+                        $guardar = $membresia->save();
+                        if($guardar){
+                            return response()->json([
+                                'mensaje'			=> "Membresia creada exitosamente",
+                                'titulo'			=> "Success",
+                                'tipoMensaje'		=> "success",
+                                'botonConfirmacion'	=> "ok",
+                                'Empresas'          => $empresas,
+                                'Membresia'         => $membresia
+                            ]);
+                        }else{
+                            return response()->json([
+                                'mensaje'			=> "Error al tratar de crear la membresia",
+                                'titulo'			=> "Error",
+                                'tipoMensaje'		=> "error",
+                                'botonConfirmacion'	=> "ok"
+                            ]);
+                        }
+                    }
+                }
 			}
-			catch(Exception $e){
+			catch(Throwable $e){
 				return response()->json([
 					'mensaje'			=> $e,
-					'titulo'			=> "error",
+					'titulo'			=> "Error",
 					'tipoMensaje'		=> "error",
 					'botonConfirmacion'	=> "ok"
 				]);
@@ -1114,6 +1148,7 @@ class PermisosController extends Controller
 
 		public function cancelarmembresia(Request $request){
 			try{
+
 				$empresas = DB::table('empresa')
 	                      ->where('empresa.estado','0')
 	                      ->get();
@@ -1135,70 +1170,70 @@ class PermisosController extends Controller
 	            }else{
 	            	return response()->json([
 						'mensaje'			=> "Esta Membresia ya se encuentra cancelada",
-						'titulo'			=> "Success",
-						'tipoMensaje'		=> "success",
-						'botonConfirmacion'	=> "ok"
-					]);
-	            }
-			}
-			catch(Exception $e){
-				return response()->json([
-					'mensaje'			=> $e,
-					'titulo'			=> "error",
-					'tipoMensaje'		=> "error",
-					'botonConfirmacion'	=> "ok"
-				]);
-			}
-		}
-
-		public function actualizarmembresia(Request $request){
-			try{
-				$empresas = DB::table('empresa')
-	                      ->where('empresa.estado','0')
-	                      ->get();
-	            $feci=$request->input('Fei');
-	            $fecf=$request->input('Fef');
-	            if($fecf<=$feci){
-	        		return response()->json([
-						'mensaje'			=> "la fecha de fin no puede ser menor que la inicio",
 						'titulo'			=> "Error",
 						'tipoMensaje'		=> "error",
 						'botonConfirmacion'	=> "ok"
 					]);
-	        	}
-
-	        	$membresia = membresia::find($request->input('idmem'));
-	        	$membresia->idempresa=$request->input('Empresa');
-	        	$membresia->fechainicio=$request->input('Fei');
-	        	$membresia->fechafin=$request->input('Fef');
-	        	$guardar = $membresia->save();
-				if($guardar){
-					return response()->json([
-						'mensaje'			=> "Membresia actualizada exitosamente",
-						'titulo'			=> "Success",
-						'tipoMensaje'		=> "success",
-						'botonConfirmacion'	=> "ok",
-						'Empresas'          => $empresas,
-						'Membresia'         => $membresia
-					]);
-	            }else{
-	            	return response()->json([
-						'mensaje'			=> "Error al tratar de actualizar la membresia",
-						'titulo'			=> "error",
-						'tipoMensaje'		=> "error",
-						'botonConfirmacion'	=> "ok"
-					]);
 	            }
 			}
-			catch(Exception $e){
+			catch(Throwable $e){
 				return response()->json([
 					'mensaje'			=> $e,
-					'titulo'			=> "error",
+					'titulo'			=> "Error",
 					'tipoMensaje'		=> "error",
 					'botonConfirmacion'	=> "ok"
 				]);
 			}
 		}
+
+		// public function actualizarmembresia(Request $request){
+		// 	try{
+		// 		$empresas = DB::table('empresa')
+	    //                   ->where('empresa.estado','0')
+	    //                   ->get();
+	    //         $feci=$request->input('Fei');
+	    //         $fecf=$request->input('Fef');
+	    //         if($fecf<=$feci){
+	    //     		return response()->json([
+		// 				'mensaje'			=> "la fecha de fin no puede ser menor que la inicio",
+		// 				'titulo'			=> "Error",
+		// 				'tipoMensaje'		=> "error",
+		// 				'botonConfirmacion'	=> "ok"
+		// 			]);
+	    //     	}
+
+	    //     	$membresia = membresia::find($request->input('idmem'));
+	    //     	$membresia->idempresa=$request->input('Empresa');
+	    //     	$membresia->fechainicio=$request->input('Fei');
+	    //     	$membresia->fechafin=$request->input('Fef');
+	    //     	$guardar = $membresia->save();
+		// 		if($guardar){
+		// 			return response()->json([
+		// 				'mensaje'			=> "Membresia actualizada exitosamente",
+		// 				'titulo'			=> "Success",
+		// 				'tipoMensaje'		=> "success",
+		// 				'botonConfirmacion'	=> "ok",
+		// 				'Empresas'          => $empresas,
+		// 				'Membresia'         => $membresia
+		// 			]);
+	    //         }else{
+	    //         	return response()->json([
+		// 				'mensaje'			=> "Error al tratar de actualizar la membresia",
+		// 				'titulo'			=> "error",
+		// 				'tipoMensaje'		=> "error",
+		// 				'botonConfirmacion'	=> "ok"
+		// 			]);
+	    //         }
+		// 	}
+		// 	catch(Exception $e){
+		// 		return response()->json([
+		// 			'mensaje'			=> $e,
+		// 			'titulo'			=> "error",
+		// 			'tipoMensaje'		=> "error",
+		// 			'botonConfirmacion'	=> "ok"
+		// 		]);
+		// 	}
+		// }
 
 		public function reporteMemb($idempresa=0){
 			try{

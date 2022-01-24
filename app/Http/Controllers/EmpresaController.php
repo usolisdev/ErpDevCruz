@@ -35,7 +35,7 @@ class EmpresaController extends Controller
 		public function listarempresas(){
 			try{
 				$empresas = DB::table('empresa')
-	                      ->where('empresa.estado','1')
+	                      ->where('empresa.estado','0')
 	                      ->get();
 	            //return $empresas;
 	            return response()->json([
@@ -205,7 +205,7 @@ class EmpresaController extends Controller
                     $empresa->Correo	    = $request->input('CorreoEmpresa'). " ";
                     $empresa->Direccion		= $request->input('DireccionEmpresa'). " ";
                     $empresa->Niveles	    = $request->input('NivelesEmpresa');
-                    $empresa->estado	    = 1;
+                    $empresa->estado	    = 0;
                     $empresa->IdUsuario	    = $idusuario;
                     $empresa->created_at    = $hoy;
 
