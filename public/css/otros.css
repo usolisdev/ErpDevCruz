@@ -49,3 +49,15 @@
 .dataTables_scroll{
 	height: 232px;
 }
+#tablapuntosfacturacion_filter{
+	float: left;
+	margin-left: -0.6vw;
+}
+#tabladosificacion_filter{
+	float: left;
+	margin-left: -0.6vw;
+}
+.current{
+	background-color: #7239ea !important;
+    /*background: none !important;*/
+}

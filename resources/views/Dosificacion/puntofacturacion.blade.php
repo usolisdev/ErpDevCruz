@@ -558,7 +558,7 @@
 @endsection
 
 @section('content')
-		<div class="row">
+	<div class="row">
         <div class="col-md-12">
 			@if (session('sinacceso'))
 		        <div id="prefix_1329875903354" class="custom-alerts alert alert-danger fade in">
@@ -567,24 +567,21 @@
 		        </div>
 		    @endif
 			<label id="lblidempresa" style="display: none;">{{ $idempresa }}</label>
+			<label id="lblidsucursal" style="display: none;">{{ $idsucursal }}</label>
 			<label id="access" style="display: none;">{{$access}}</label>
 			<div class="card rounded-0 bgi-no-repeat bgi-position-x-end bgi-size-cover" data-select2-id="select2-data-75-yznj" style="background-color: #D6DBDF;background-size: auto 100%;">
-			    <div style="height: 100%;" class="card-body container-xxl pt-10 pb-8" data-select2-id="select2-data-74-kxv9">
-			        <div class="row">
-			            <div class="col-md-12">
-							<div class="card portlet light bordered">
-								<div class="card-header border-0 pt-5">
-								    <h3 class="card-title align-items-start flex-column">
-								        <span class="card-label fw-bolder fs-3 mb-1">punto de facturizacion de sucursal {{$SucursalNombre}}</span>
-								    </h3>
-				                    <div class="actions">
-				                    	@if($access!="consulta")
-                                            <button type="button" class="btn btn-primary me-5" id="btn-addsuc" data-bs-toggle="modal" data-bs-target="#modaladdsuc">Agregar punto de facturizacion</button>
-				    						<button type="button" class="btn btn-warning" id="idrtexcel">Excel</button>
-				    						<button type="button" class="btn  btn-danger" onclick="javascript:window.open('http://localhost:8000/sucursales/repsucursal/{{$idempresa}}','','width=900,height=500,left=50,top=50');">PDF</button>
-										@endif
-									</div>
-								</div>
+				<div style="height: 100%;" class="card-body container-xxl pt-10 pb-8" data-select2-id="select2-data-74-kxv9">
+					<div class="card portlet light bordered">
+						<div class="card-header border-0 pt-5">
+						    <h3 class="card-title align-items-start flex-column">
+						        <span class="card-label fw-bolder fs-3 mb-1">Sucursal de {{$EmpresaNombre}}</span>
+						    </h3>
+		                    <div class="actions">
+		                    	@if($access!="consulta")
+	                                <button type="button" class="btn btn-primary me-5" id="btn-addpf" data-bs-toggle="modal" data-bs-target="#modaladdpf">Agregar Punto de facturizacion</button>
+		    						<button type="button" class="btn btn-warning" id="idrtexcel">Excel</button>
+		    						<button type="button" class="btn  btn-danger" onclick="javascript:window.open('http://localhost:8000/sucursales/repsucursal/{{$idempresa}}','','width=900,height=500,left=50,top=50');">PDF</button>
+								@endif
 							</div>
 						</div>
 					</div>
@@ -592,36 +589,20 @@
 				<div class="card-body container-xxl pt-0 pb-8" data-select2-id="select2-data-74-kxv9">
 			        <div class="row">
 			            <div class="col-md-12">
-							<div class="card portlet light bordered">
-								<!-- <div class="card-header border-0">
-								    <div class="d-flex align-items-center position-relative my-1">
-								        <span class="svg-icon svg-icon-1 position-absolute ms-6">
-								            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-								                <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546" height="2" rx="1" transform="rotate(45 17.0365 15.1223)" fill="black" />
-								                <path d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z" fill="black" />
-								            </svg>
-								        </span>
-								        <input type="text" data-kt-empresas-table-filter="search" class="form-control form-control-solid w-250px ps-15" placeholder="Buscar Sucursal" />
-								    </div>
-				                    <div class="actions">
-				                    	@if($access!="consulta")
-				    						<button id="btnAddempresa" type="button" class="btn btn-primary mt-4" data-bs-toggle="modal" data-bs-target="#kt_modal_add_empresa">Agregar</button>
-										@endif
-									</div>
-								</div> -->
+							<div class="card portled light bordered">
 								<div class="card-body py-3">
 									<div id="tabla" class="table-responsive">
 										<table id="tablapuntosfacturacion" class="table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4">
 											<thead>
 												<tr class="fw-bolder text-muted">
-													<th class="min-w-150px">Alias</th>
-													<th class="min-w-140px">Direccion</th>
-													<th class="min-w-120px">Contacto</th>
-													<th class="min-w-100px text-end">Actions</th>
+													<th class="min-w-150px">Codigo</th>
+													<th class="min-w-140px">Alias</th>
+													<th class="min-w-120px">Sucursal</th>
+													<th class="min-w-100px text-end">Opciones</th>
 												</tr>
 											</thead>
+
 											<tbody>
-											
 											</tbody>
 										</table>
 									</div>
@@ -631,399 +612,78 @@
 					</div>
 				</div>
 			</div>
-        </div>
-            <div id="modaladdsuc" class="modal fade" role="dialog">
-                <div class="modal-dialog modal-dialog-centered mw-650px">
-                    <div class="modal-content">
-                        <form class="form" action="#" id="" data-kt-redirect="">
-                            <div class="modal-header">
-                                <h2 class="fw-bolder" id="tituloModalsuc"> Crear Sucursal</h2>
-                            </div>
+		</div>
+	</div>
 
-                            <div class="modal-body">
-                                  <div class="scroll-y me-n7 pe-7" id="kt_modal_add_customer_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_add_customer_header" data-kt-scroll-wrappers="#kt_modal_add_customer_scroll" data-kt-scroll-offset="300px">
+	<div id="modaladdpf" class="modal fade" role="dialog">
+		<div class="modal-dialog modal-dialog-centered mw-650px">
+			<div class="modal-content">
+				<form class="form" action="#" id="" data-kt-redirect="">
+					<div class="modal-header">
+						<h3 class="modal-title" id="tituloModalpf"> Crear Punto de Facturacion</h3>
+                        <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                            <span class="svg-icon svg-icon-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
+                                    <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black" />
+                                </svg>
+                            </span>
+                        </div>
+					</div>
+					<div class="modal-body">
+						<div class="row g-9 mb-7"> 							
+							<div class="col-md-6 fv-row">	
+								<label for="txtalias" class="required fs-6 fw-bold mb-2">Alias</label>
+								<input class="form-control form-control-solid" type="text" id="txtalias"/>
+							</div>
+							<div class="col-md-6 fv-row">
+								<label for="txtcode" class="required fs-6 fw-bold mb-2">Codigo</label>
+								<input class="form-control form-control-solid" type="text" id="txtcode"/>
+							</div>
+						</div>
+						<div class="row g-9 mb-7"> 
+							<div class="col-md-6 fv-row">
+								<label for="cmbestado" class="required fs-6 fw-bold mb-2">Estado</label>
+								<select class="form-control form-control-solid" id="cmbestado">
+									<option value="0">habilitado</option>
+									<option value="1">deshabilitado</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer flex-center">
+						<button type="button" class="btn btn-info" id="btnAceptaraddpf">Aceptar</button>
+						<button type="button" class="btn btn-default" data-bs-dismiss="modal">Cancelar</button>
+					</div>
+				</form>
+			</div>
 
-                                    <div id="rowcomplete" class="row g-9 mb-7">
-                                        <!--begin::Col-->
-                                        <div class="col-md-6 fv-row">
-                                            <!--begin::Label-->
-                                            <label class="required fs-6 fw-bold mb-2">Alias de la Sucursal</label>
-                                            <!--end::Label-->
-                                            <!--begin::Input-->
-                                            <input id="txtalias" class="form-control form-control-solid" placeholder="" name="TxtNombre" />
-                                            <!--end::Input-->
-                                        </div>
-                                        <!--end::Col-->
-                                        <!--begin::Col-->
-                                        <div class="col-md-6 fv-row">
-                                            <!--begin::Label-->
-                                            <label class="required fs-6 fw-bold mb-2">Direccion</label>
-                                            <!--end::Label-->
-                                            <!--begin::Input-->
-                                            <input class="form-control form-control-solid" placeholder="" id="txtdirsuc"/>
-                                            <!--end::Input-->
-                                        </div>
-                                        <!--end::Col-->
-                                    </div>
+		</div>
+	</div>
 
-                                    <div class="row g-9 mb-7">
-                                        <!--begin::Col-->
-                                        <div class="col-md-6 fv-row">
-                                            <!--begin::Label-->
-                                            <label class="required fs-6 fw-bold mb-2">Telefono</label>
-                                            <!--end::Label-->
-                                            <!--begin::Input-->
-                                            <input id="txttelsuc" class="form-control form-control-solid" placeholder=""/>
-                                            <!--end::Input-->
-                                        </div>
-                                        <!--end::Col-->
-                                        <!--begin::Col-->
-                                        <div class="col-md-6 fv-row">
-                                            <!--begin::Label-->
-                                            <label class="fs-6 fw-bold mb-2">Email</label>
-                                            <!--end::Label-->
-                                            <!--begin::Input-->
-                                            <input id="txtmailsuc" class="form-control form-control-solid" placeholder=""/>
-                                            <!--end::Input-->
-                                        </div>
-                                        <!--end::Col-->
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="modal-header" id="kt_modal_add_customer_header">
-                                <!--begin::Modal title-->
-                                <h2 name="TitleModal" class="fw-bolder">Contacto</h2>
-                            </div>
-                            <div class="modal-body py-10 px-lg-17">
-                                <!--begin::Scroll-->
-                                <div class="scroll-y me-n7 pe-7" id="kt_modal_add_customer_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_add_customer_header" data-kt-scroll-wrappers="#kt_modal_add_customer_scroll" data-kt-scroll-offset="300px">
-
-                                    <div class="row g-9 mb-7">
-                                        <!--begin::Col-->
-                                        <div class="col-md-6 fv-row">
-                                            <!--begin::Label-->
-                                            <label class="required fs-6 fw-bold mb-2">CI</label>
-                                            <!--end::Label-->
-                                            <!--begin::Input-->
-                                            <input id="txtci" class="form-control form-control-solid" placeholder=""/>
-                                            <!--end::Input-->
-                                        </div>
-                                        <!--end::Col-->
-                                        <!--begin::Col-->
-                                        <div class="col-md-6 fv-row">
-                                            <!--begin::Label-->
-                                            <label class="required fs-6 fw-bold mb-2">NIT</label>
-                                            <!--end::Label-->
-                                            <!--begin::Input-->
-                                            <input class="form-control form-control-solid" placeholder="" id="txtnit"/>
-                                            <!--end::Input-->
-                                        </div>
-                                        <!--end::Col-->
-                                    </div>
-
-                                    <div class="row g-9 mb-7">
-                                        <!--begin::Col-->
-                                        <div class="col-md-6 fv-row">
-                                            <!--begin::Label-->
-                                            <label class="required fs-6 fw-bold mb-2">Nombres</label>
-                                            <!--end::Label-->
-                                            <!--begin::Input-->
-                                            <input id="txtnombres" class="form-control form-control-solid" placeholder=""/>
-                                            <!--end::Input-->
-                                        </div>
-                                        <!--end::Col-->
-                                        <!--begin::Col-->
-                                        <div class="col-md-6 fv-row">
-                                            <!--begin::Label-->
-                                            <label class="fs-6 fw-bold mb-2">Apellidos</label>
-                                            <!--end::Label-->
-                                            <!--begin::Input-->
-                                            <input id="txtapellidos" class="form-control form-control-solid" placeholder=""/>
-                                            <!--end::Input-->
-                                        </div>
-                                        <!--end::Col-->
-                                    </div>
-
-                                    <div class="row g-9 mb-7">
-                                        <!--begin::Col-->
-                                        <div class="col-md-6 fv-row">
-                                            <!--begin::Label-->
-                                            <label class="fs-6 fw-bold mb-2">Email</label>
-                                            <!--end::Label-->
-                                            <!--begin::Input-->
-                                            <input id="txtmail" class="form-control form-control-solid" placeholder=""/>
-                                            <!--end::Input-->
-                                        </div>
-                                        <!--end::Col-->
-                                        <!--begin::Col-->
-                                        <div class="col-md-6 fv-row">
-                                            <!--begin::Label-->
-                                            <label class="fs-6 fw-bold mb-2">Celular</label>
-                                            <!--end::Label-->
-                                            <!--begin::Input-->
-                                            <input id="txtcel" class="form-control form-control-solid" placeholder=""/>
-                                            <!--end::Input-->
-                                        </div>
-                                        <!--end::Col-->
-                                    </div>
-
-                                    <div class="row g-9 mb-7">
-                                        <!--begin::Col-->
-                                        <div class="col-md-6 fv-row">
-                                            <!--begin::Label-->
-                                            <label class="required fs-6 fw-bold mb-2">Telefono</label>
-                                            <!--end::Label-->
-                                            <!--begin::Input-->
-                                            <input id="txttel" class="form-control form-control-solid" placeholder=""/>
-                                            <!--end::Input-->
-                                        </div>
-                                        <!--end::Col-->
-                                        <!--begin::Col-->
-                                        <div class="col-md-6 fv-row">
-                                            <!--begin::Label-->
-                                            <label class="fs-6 fw-bold mb-2">Direccion</label>
-                                            <!--end::Label-->
-                                            <!--begin::Input-->
-                                            <input id="txtdir" class="form-control form-control-solid" placeholder=""/>
-                                            <!--end::Input-->
-                                        </div>
-                                        <!--end::Col-->
-                                    </div>
-
-                                    <div class="row g-9 mb-7">
-                                        <!--begin::Col-->
-                                        <div class="col-md-6 fv-row">
-                                            <!--begin::Label-->
-                                            <label class="fs-6 fw-bold mb-2">Fecha de Nacimiento</label>
-                                            <!--end::Label-->
-                                            <!--begin::Input-->
-                                            <input id="txtfecnac" type="date" class="form-control form-control-solid" placeholder=""/>
-                                            <!--end::Input-->
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--end::Scroll-->
-                            </div>
-
-                            <div class="modal-footer flex-center">
-                                <button type="button" class="btn btn-info" id="btnAceptaraddsuc">Aceptar</button>
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                            </div>
-                        </form>
+	<div id="modaladvertencia" class="modal fade" role="dialog">
+		<div class="modal-dialog">		
+			<div class="modal-content">
+				<div class="modal-header">
+					<h3 class="modal-title" id="tituloModal">Advertencia</h3>
+                    <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                        <span class="svg-icon svg-icon-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
+                                <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black" />
+                            </svg>
+                        </span>
                     </div>
+				</div>
 
-                </div>
-            </div>
-			<div class="modal fade" id="kt_modal_add_empresa" tabindex="-1" aria-hidden="true">
-			    <!--begin::Modal dialog-->
-			    <div class="modal-dialog modal-dialog-centered mw-650px">
-			        <!--begin::Modal content-->
-			        <div class="modal-content">
-			            <!--begin::Form-->
-			            <form class="form" action="#" id="kt_modal_add_empresa_form" data-kt-redirect="">
-			                <!--begin::Modal header-->
-			                <div class="modal-header" id="kt_modal_add_customer_header">
-			                    <!--begin::Modal title-->
-			                    <h2 name="TitleModal" class="fw-bolder">Agregar Sucursal</h2>
-			                    <!--end::Modal title-->
-			                    <!--begin::Close-->
-			                    <div id="kt_modal_add_empresa_close" class="btn btn-icon btn-sm btn-active-icon-primary">
-			                        <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
-			                        <span class="svg-icon svg-icon-1">
-			                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-			                                <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
-			                                <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black" />
-			                            </svg>
-			                        </span>
-			                        <!--end::Svg Icon-->
-			                    </div>
-			                    <!--end::Close-->
-			                </div>
-			                <div class="modal-body py-10 px-lg-17">
-			                    <!--begin::Scroll-->
-			                    <div class="scroll-y me-n7 pe-7" id="kt_modal_add_customer_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_add_customer_header" data-kt-scroll-wrappers="#kt_modal_add_customer_scroll" data-kt-scroll-offset="300px">
-
-			                        <div class="row g-9 mb-7">
-			                            <!--begin::Col-->
-			                            <div class="col-md-6 fv-row">
-			                                <!--begin::Label-->
-			                                <label class="required fs-6 fw-bold mb-2">Alias de la Sucursal</label>
-			                                <!--end::Label-->
-			                                <!--begin::Input-->
-			                                <input class="form-control form-control-solid" placeholder="" name="TxtNombre" />
-			                                <!--end::Input-->
-			                            </div>
-			                            <!--end::Col-->
-			                            <!--begin::Col-->
-			                            <div class="col-md-6 fv-row">
-			                                <!--begin::Label-->
-			                                <label class="required fs-6 fw-bold mb-2">Direccion</label>
-			                                <!--end::Label-->
-			                                <!--begin::Input-->
-			                                <input class="form-control form-control-solid" placeholder="" id="kt_inputmask_nit" name="TxtNit" />
-			                                <!--end::Input-->
-			                            </div>
-			                            <!--end::Col-->
-			                        </div>
-
-			                        <div class="row g-9 mb-7">
-			                            <!--begin::Col-->
-			                            <div class="col-md-6 fv-row">
-			                                <!--begin::Label-->
-			                                <label class="required fs-6 fw-bold mb-2">Telefono</label>
-			                                <!--end::Label-->
-			                                <!--begin::Input-->
-			                                <input class="form-control form-control-solid" placeholder="" name="TxtSigla" />
-			                                <!--end::Input-->
-			                            </div>
-			                            <!--end::Col-->
-			                            <!--begin::Col-->
-			                            <div class="col-md-6 fv-row">
-			                                <!--begin::Label-->
-			                                <label class="fs-6 fw-bold mb-2">Email</label>
-			                                <!--end::Label-->
-			                                <!--begin::Input-->
-			                                <input class="form-control form-control-solid" placeholder="" name="TxtTelefono" />
-			                                <!--end::Input-->
-			                            </div>
-			                            <!--end::Col-->
-			                        </div>
-			                    </div>
-			                    <!--end::Scroll-->
-			                </div>
-			                <div class="modal-header" id="kt_modal_add_customer_header">
-			                    <!--begin::Modal title-->
-			                    <h2 name="TitleModal" class="fw-bolder">Contacto</h2>
-			                </div>
-			                <div class="modal-body py-10 px-lg-17">
-			                    <!--begin::Scroll-->
-			                    <div class="scroll-y me-n7 pe-7" id="kt_modal_add_customer_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_add_customer_header" data-kt-scroll-wrappers="#kt_modal_add_customer_scroll" data-kt-scroll-offset="300px">
-
-			                        <div class="row g-9 mb-7">
-			                            <!--begin::Col-->
-			                            <div class="col-md-6 fv-row">
-			                                <!--begin::Label-->
-			                                <label class="required fs-6 fw-bold mb-2">CI</label>
-			                                <!--end::Label-->
-			                                <!--begin::Input-->
-			                                <input class="form-control form-control-solid" placeholder="" name="TxtNombre" />
-			                                <!--end::Input-->
-			                            </div>
-			                            <!--end::Col-->
-			                            <!--begin::Col-->
-			                            <div class="col-md-6 fv-row">
-			                                <!--begin::Label-->
-			                                <label class="required fs-6 fw-bold mb-2">NIT</label>
-			                                <!--end::Label-->
-			                                <!--begin::Input-->
-			                                <input class="form-control form-control-solid" placeholder="" id="kt_inputmask_nit" name="TxtNit" />
-			                                <!--end::Input-->
-			                            </div>
-			                            <!--end::Col-->
-			                        </div>
-
-			                        <div class="row g-9 mb-7">
-			                            <!--begin::Col-->
-			                            <div class="col-md-6 fv-row">
-			                                <!--begin::Label-->
-			                                <label class="required fs-6 fw-bold mb-2">Nombres</label>
-			                                <!--end::Label-->
-			                                <!--begin::Input-->
-			                                <input class="form-control form-control-solid" placeholder="" name="TxtSigla" />
-			                                <!--end::Input-->
-			                            </div>
-			                            <!--end::Col-->
-			                            <!--begin::Col-->
-			                            <div class="col-md-6 fv-row">
-			                                <!--begin::Label-->
-			                                <label class="fs-6 fw-bold mb-2">Apellidos</label>
-			                                <!--end::Label-->
-			                                <!--begin::Input-->
-			                                <input class="form-control form-control-solid" placeholder="" name="TxtTelefono" />
-			                                <!--end::Input-->
-			                            </div>
-			                            <!--end::Col-->
-			                        </div>
-
-			                        <div class="row g-9 mb-7">
-			                            <!--begin::Col-->
-			                            <div class="col-md-6 fv-row">
-			                                <!--begin::Label-->
-			                                <label class="fs-6 fw-bold mb-2">Email</label>
-			                                <!--end::Label-->
-			                                <!--begin::Input-->
-			                                <input class="form-control form-control-solid" placeholder="" name="TxtCorreo" />
-			                                <!--end::Input-->
-			                            </div>
-			                            <!--end::Col-->
-			                            <!--begin::Col-->
-			                            <div class="col-md-6 fv-row">
-			                                <!--begin::Label-->
-			                                <label class="fs-6 fw-bold mb-2">Celular</label>
-			                                <!--end::Label-->
-			                                <!--begin::Input-->
-			                                <input class="form-control form-control-solid" placeholder="" name="TxtDireccion" />
-			                                <!--end::Input-->
-			                            </div>
-			                            <!--end::Col-->
-			                        </div>
-
-			                        <div class="row g-9 mb-7">
-			                            <!--begin::Col-->
-			                            <div class="col-md-6 fv-row">
-			                                <!--begin::Label-->
-			                                <label class="required fs-6 fw-bold mb-2">Telefono</label>
-			                                <!--end::Label-->
-			                                <!--begin::Input-->
-			                                <input class="form-control form-control-solid" placeholder="" name="TxtSigla" />
-			                                <!--end::Input-->
-			                            </div>
-			                            <!--end::Col-->
-			                            <!--begin::Col-->
-			                            <div class="col-md-6 fv-row">
-			                                <!--begin::Label-->
-			                                <label class="fs-6 fw-bold mb-2">Direccion</label>
-			                                <!--end::Label-->
-			                                <!--begin::Input-->
-			                                <input class="form-control form-control-solid" placeholder="" name="TxtTelefono" />
-			                                <!--end::Input-->
-			                            </div>
-			                            <!--end::Col-->
-			                        </div>
-
-			                        <div class="row g-9 mb-7">
-			                            <!--begin::Col-->
-			                            <div class="col-md-6 fv-row">
-			                                <!--begin::Label-->
-			                                <label class="fs-6 fw-bold mb-2">Fecha de Nacimiento</label>
-			                                <!--end::Label-->
-			                                <!--begin::Input-->
-			                                <input type="date" class="form-control form-control-solid" placeholder="" name="TxtCorreo" />
-			                                <!--end::Input-->
-			                            </div>
-			                        </div>
-			                    </div>
-			                    <!--end::Scroll-->
-			                </div>
-			                <!--end::Modal body-->
-			                <!--begin::Modal footer-->
-			                <div class="modal-footer flex-center">
-			                    <!--begin::Button-->
-			                    <button type="reset" id="kt_modal_add_empresa_cancel" class="btn btn-light me-3">Cancelar</button>
-			                    <!--end::Button-->
-			                    <!--begin::Button-->
-			                    <button type="submit" id="kt_modal_add_empresa_submit" class="btn btn-primary" value="">
-			                        <span class="indicator-label">Guardar</span>
-			                        <span class="indicator-progress">Espere por favor...
-			                        <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-			                    </button>
-			                    <!--end::Button-->
-			                </div>
-			                <!--end::Modal footer-->
-			            </form>
-			            <!--end::Form-->
-			        </div>
-			    </div>
+				<div class="modal-body">
+					<h5 id="mensajeadver">¿Esta Seguro de Querer Eliminar este Registro?</h5>
+				</div>
+					
+				<div class="modal-footer">
+					<button type="button" class="btn btn-info" id="btnacepadv">Aceptar</button>
+					<button type="button" class="btn btn-default" data-bs-dismiss="modal">Cancelar</button>
+				</div>
 			</div>
 		</div>
 	</div>
