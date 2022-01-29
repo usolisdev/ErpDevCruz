@@ -114,6 +114,45 @@
         </div>
     </div>
 
+     <div data-kt-menu-trigger="click" data-kt-menu-placement="right-start" class="menu-item py-3">
+        <span class="menu-link menu-center" title="" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right" data-bs-original-title="Compras">
+            <span class="menu-icon me-0">
+                <i class="las la-shopping-cart fs-1"></i>
+            </span>
+        </span>
+        <div class="menu-sub menu-sub-dropdown w-225px px-1 py-4">
+            <div class="menu-item">
+                <div class="menu-content">
+                    <span class="menu-section fs-5 fw-bolder ps-1 py-1">Compras</span>
+                </div>
+            </div>
+            <div class="menu-item" id="viewcatalogocampras">
+                <a href="" class="menu-link" href="" title="" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right" data-bs-original-title="">
+                    <span class="menu-icon">
+                        <i class="lab la-readme fs-1" ></i>
+                    </span>
+                    <span class="menu-title">Catalogo</span>
+                </a>
+            </div>
+           <!--  <div class="menu-item">
+                <a class="menu-link" href="{{ route('lmembresias') }}" title="" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right" data-bs-original-title="">
+                    <span class="menu-icon">
+                        <i class="las la-ticket-alt fs-1"></i>
+                    </span>
+                    <span class="menu-title">Membresias</span>
+                </a>
+            </div>
+            <div class="menu-item">
+                <a class="menu-link" href="{{ route('listar-permisos') }}" title="" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right" data-bs-original-title="">
+                    <span class="menu-icon">
+                        <i class="las la-key fs-1"></i>
+                    </span>
+                    <span class="menu-title">Accesos</span>
+                </a>
+            </div> -->
+        </div>
+    </div>
+
 @endsection
 
 @section('content')

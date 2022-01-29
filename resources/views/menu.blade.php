@@ -66,6 +66,16 @@
                             <span class="menu-title">Sucursales</span>
                         </a>
                     </div>
+                    <div data-kt-menu-placement="right-start" class="menu-item menu-lg-down-accordion" id="view2gestiones">
+                        <a href="{{ route('listar-gestion', $idempresa) }}" class="menu-link py-3">
+                            <span class="menu-icon">
+                                <span class="svg-icon svg-icon-2">
+                                    <i class="lab la-buffer fs-1"></i>
+                                </span>
+                            </span>
+                            <span class="menu-title">Gestiones</span>
+                        </a>
+                    </div>
                 </div>
             </div>
             <div class="menu-item">
@@ -383,77 +393,45 @@
         </div>
     </div>
     <div data-kt-menu-trigger="click" data-kt-menu-placement="right-start" class="menu-item py-3">
-        <span class="menu-link menu-center" title="" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right" data-bs-original-title="Chat App">
+        <span class="menu-link menu-center" title="" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right" data-bs-original-title="Compras">
             <span class="menu-icon me-0">
-                <i class="bi bi-chat-square-text fs-2"></i>
+                <i class="las la-shopping-cart fs-1"></i>
             </span>
         </span>
         <div class="menu-sub menu-sub-dropdown w-225px px-1 py-4" style="">
             <div class="menu-item">
                 <div class="menu-content">
-                    <span class="menu-section fs-5 fw-bolder ps-1 py-1">Chat</span>
+                    <span class="menu-section fs-5 fw-bolder ps-1 py-1">Compras</span>
                 </div>
             </div>
-            <div class="menu-item">
-                <a class="menu-link" href="../../demo4/dist/apps/chat/private.html">
+            <div class="menu-item" id="viewcatalogocampras">
+                <a class="menu-link" href="{{ route('listar-articulos', $idempresa) }}">
                     <span class="menu-bullet">
-                        <span class="bullet bullet-dot"></span>
+                       <i class="lab la-readme fs-2"></i>
                     </span>
-                    <span class="menu-title">Private Chat</span>
-                </a>
-            </div>
-            <div class="menu-item">
-                <a class="menu-link" href="../../demo4/dist/apps/chat/group.html">
-                    <span class="menu-bullet">
-                        <span class="bullet bullet-dot"></span>
-                    </span>
-                    <span class="menu-title">Group Chat</span>
-                </a>
-            </div>
-            <div class="menu-item">
-                <a class="menu-link" href="../../demo4/dist/apps/chat/drawer.html">
-                    <span class="menu-bullet">
-                        <span class="bullet bullet-dot"></span>
-                    </span>
-                    <span class="menu-title">Drawer Chat</span>
+                    <span class="menu-title">Catalogo</span>
                 </a>
             </div>
         </div>
     </div>
     <div data-kt-menu-trigger="click" data-kt-menu-placement="right-start" class="menu-item py-3">
-        <span class="menu-link menu-center" title="" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right" data-bs-original-title="Customers App">
+        <span class="menu-link menu-center" title="" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right" data-bs-original-title="Ventas">
             <span class="menu-icon me-0">
-                <i class="bi bi-people fs-2"></i>
+               <i class="las la-money-bill-wave fs-1"></i>
             </span>
         </span>
         <div class="menu-sub menu-sub-dropdown w-225px px-1 py-4" style="">
             <div class="menu-item">
                 <div class="menu-content">
-                    <span class="menu-section fs-5 fw-bolder ps-1 py-1">Customers</span>
+                    <span class="menu-section fs-5 fw-bolder ps-1 py-1">Ventas</span>
                 </div>
             </div>
-            <div class="menu-item">
-                <a class="menu-link" href="../../demo4/dist/apps/customers/getting-started.html">
+            <div class="menu-item" id="viewcatalogocampras">
+                <a class="menu-link" href="{{ route('listar-articulos', $idempresa) }}">
                     <span class="menu-bullet">
-                        <span class="bullet bullet-dot"></span>
+                         <i class="lab la-readme fs-2"></i>
                     </span>
-                    <span class="menu-title">Getting Started</span>
-                </a>
-            </div>
-            <div class="menu-item">
-                <a class="menu-link" href="../../demo4/dist/apps/customers/list.html">
-                    <span class="menu-bullet">
-                        <span class="bullet bullet-dot"></span>
-                    </span>
-                    <span class="menu-title">Customer Listing</span>
-                </a>
-            </div>
-            <div class="menu-item">
-                <a class="menu-link" href="../../demo4/dist/apps/customers/view.html">
-                    <span class="menu-bullet">
-                        <span class="bullet bullet-dot"></span>
-                    </span>
-                    <span class="menu-title">Customer Details</span>
+                    <span class="menu-title">Catalogo</span>
                 </a>
             </div>
         </div>
