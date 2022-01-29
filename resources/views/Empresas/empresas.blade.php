@@ -54,7 +54,7 @@
                     <span class="menu-section fs-5 fw-bolder ps-1 py-1">Gestionar</span>
                 </div>
             </div>
-            <div class="menu-item" id="viewagendaadmin">
+            {{-- <div class="menu-item" id="viewagendaadmin">
                 <a class="menu-link" href="" title="" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right" data-bs-original-title="">
                     <span class="menu-icon">
                         <i class="las la-calendar-minus fs-1"></i>
@@ -86,7 +86,7 @@
                         </a>
                     </div>
                 </div>
-            </div>
+            </div> --}}
             <div class="menu-item">
                 <a class="menu-link" href="" title="" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right" data-bs-original-title="">
                     <span class="menu-icon">
