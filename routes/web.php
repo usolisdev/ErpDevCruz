@@ -179,7 +179,31 @@ Route::get('/',[
                 'as'    => 'sucursales-repdosifiexcel',
                 'uses'  => 'SucursalController@downloadExcelDosificacion'
             ])->middleware('auth');
-
+        /***************Gestion*******************/
+            Route::post('gestiones/listadegestiones', [
+                'as'    => 'listadegestiones',
+                'uses'  => 'GestionController@listadegestiones'
+            ])->middleware('auth');
+            Route::post('gestiones/TraerGestion', [
+                'as'    => 'Traer-gestion',
+                'uses'  => 'GestionController@TraerGestion'
+            ])->middleware('auth');
+            Route::get('gestiones/listargestiones/{idempresa}', [
+                'as'    => 'listar-gestion',
+                'uses'  => 'GestionController@lgestion'
+            ])->middleware('auth');
+            Route::post('gestiones/crear-gestion', [
+                'as'    => 'crear-gestion',
+                'uses'  => 'GestionController@GuardarGestion'
+            ])->middleware('auth');
+            Route::post('gestiones/actualizar-gestion', [
+                'as'    => 'actualizar-gestion',
+                'uses'  => 'GestionController@EditarGestion'
+            ])->middleware('auth');
+            Route::post('gestiones/eliminar-gestion', [
+                'as'    => 'eliminar-gestion',
+                'uses'  => 'GestionController@EliminarGestion'
+            ])->middleware('auth');
 /***************Permisos*******************/
 		/***************Modulos*******************/
             Route::get('seguridad/modulos/{idempresa}', [
@@ -248,7 +272,32 @@ Route::get('/',[
             'as'	=> 'membresias-reporteexcel',
             'uses'	=> 'PermisosController@downloadExcelmemb'
         ])->middleware('auth');
-
+/***************Ventas*******************/
+    /***************Articulos*******************/
+        Route::get('articulos/listararticulos/{idempresa}', [
+            'as'    => 'listar-articulos',
+            'uses'  => 'ArticuloController@larticulos'
+        ])->middleware('auth');
+        Route::post('articulos/getdata', [
+            'as'    => 'get-articulo',
+            'uses'  => 'ArticuloController@datosarticulo'
+        ])->middleware('auth');
+        Route::post('articulos/crear-articulo', [
+            'as'    => 'crear-articulo',
+            'uses'  => 'ArticuloController@guardarArticulo'
+        ])->middleware('auth');
+        Route::post('articulos/actualizar-articulo', [
+            'as'    => 'actualizar-articulo',
+            'uses'  => 'ArticuloController@editarArticulo'
+        ])->middleware('auth');
+        Route::post('articulos/eliminar-articulo', [
+            'as'    => 'eliminar-articulo',
+            'uses'  => 'ArticuloController@eliminarArticulo'
+        ])->middleware('auth');
+        Route::get('articulos/listarlotes/{idart}/{idem}', [
+            'as'    => 'lotes-articulo',
+            'uses'  => 'ArticuloController@listarlotes'
+        ])->middleware('auth');
 /***************CRM*******************/
 	/***************Personas*******************/
         Route::get('usuarios/{idempresa?}', [

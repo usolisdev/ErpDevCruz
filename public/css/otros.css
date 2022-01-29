@@ -57,7 +57,15 @@
 	float: left;
 	margin-left: -0.6vw;
 }
+#tablagestiones_filter{
+	float: left;
+	margin-left: -0.6vw;
+}
 .current{
 	background-color: #7239ea !important;
     /*background: none !important;*/
+}
+#tablaarticulos_filter{
+	float: left;
+	margin-left: -0.6vw;
 }
