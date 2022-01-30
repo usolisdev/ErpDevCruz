@@ -5,22 +5,23 @@
 @endsection
 
 @section('links')
-	<!-- <link rel="stylesheet" type="text/css" href="{{ asset('css/panel.css') }}"> -->
+	{{-- <!-- <link rel="stylesheet" type="text/css" href="{{ asset('css/panel.css') }}"> -->
     <!-- <link rel="stylesheet" type="text/css" href="{{ asset('css/general.css') }}"> -->
 	<link rel="stylesheet" type="text/css" href="{{ asset('css/otros.css') }}">
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
 
    <!--  <link href="{{ asset('assets/global/plugins/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" /> -->
-    <link href="{{ asset('assets/global/plugins/datatables/datatables.min.css') }}" rel="stylesheet" type="text/css" />
     <!-- <link href="{{ asset('assets/global/css/components-rounded.min.css ') }}" rel="stylesheet" id="style_components" type="text/css" /> -->
-    <link href="{{ asset('assets/global/css/plugins.min.css') }}" rel="stylesheet" type="text/css" />
-	
+    <link href="{{ asset('assets/global/css/plugins.min.css') }}" rel="stylesheet" type="text/css" /> --}}
+
+    <link href="{{ asset('assets/global/plugins/datatables/datatables.min.css') }}" rel="stylesheet" type="text/css" />
+
 @endsection
 
 @section('scripts')
 	<!-- BEGIN PAGE LEVEL PLUGINS -->
     <!-- BEGIN THEME LAYOUT SCRIPTS -->
-        <script src="{{ asset('assets/global/plugins/jquery.min.js') }}" type="text/javascript"></script>
+        {{-- <script src="{{ asset('assets/global/plugins/jquery.min.js') }}" type="text/javascript"></script>
         <script src="{{ asset('assets/global/plugins/bootstrap/js/bootstrap.min.js') }}" type="text/javascript"></script>
         <script src="{{ asset('assets/plugins/global/plugins.bundle.js') }}"></script>
         <script src="{{ asset('assets/js/scripts.bundle.js') }}"></script>
@@ -29,8 +30,9 @@
 
 	    <script src="{{ asset('assets/layouts/layout4/scripts/layout.min.js') }}" type="text/javascript"></script>
 	    <script src="{{ asset('assets/layouts/layout4/scripts/demo.min.js') }}" type="text/javascript"></script>
-	    <script src="{{ asset('assets/layouts/global/scripts/quick-sidebar.min.js') }}" type="text/javascript"></script>
-    
+	    <script src="{{ asset('assets/layouts/global/scripts/quick-sidebar.min.js') }}" type="text/javascript"></script> --}}
+
+        <script src="{{asset('assets/plugins/custom/datatables/datatables.bundle.js')}}"></script>
         <script src="{{ asset('js/tablas.js') }}"></script>
         <script src="{{ asset('js/sucursal.js') }}"></script>
 
@@ -57,9 +59,16 @@
             </span>
         </a>
     </div>
+    <div class="menu-item py-3">
+        <a class="menu-link menu-center" href="{{ route('gotomenu', $idempresa) }}" title="DashBoard" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+            <span class="menu-icon me-0">
+                <i class="fas fa-chart-line fs-1"></i>
+            </span>
+        </a>
+    </div>
 
     <div data-kt-menu-trigger="click" data-kt-menu-placement="right-start" class="menu-item py-3">
-        <span class="menu-link menu-center" title="" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right" data-bs-original-title="Gestion">
+        <span class="menu-link active menu-center" title="" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right" data-bs-original-title="Gestion">
             <span class="menu-icon me-0">
                 <i class="bi bi-gear fs-2"></i>
             </span>
@@ -79,10 +88,10 @@
                 </a>
             </div>
             <div class="menu-item" data-kt-menu-trigger="{default:'click', lg: 'hover'}" data-kt-menu-placement="right-start" id="viewparametros">
-                <span class="menu-link py-3">
+                <span class="menu-link py-3 active">
                     <span class="menu-icon">
                         <span class="svg-icon svg-icon-2">
-                           <i class="las la-stopwatch fs-1"></i>
+                        <i class="las la-stopwatch fs-1"></i>
                         </span>
                     </span>
                     <span class="menu-title">Parametrizacion</span>
@@ -91,13 +100,23 @@
                 </span>
                 <div class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-active-bg py-lg-4 w-lg-225px">
                     <div data-kt-menu-placement="right-start" class="menu-item menu-lg-down-accordion" id="view2sucursales">
-                        <a href="{{ route('listar-sucursal', $idempresa) }}" class="menu-link py-3">
+                        <a href="{{ route('listar-sucursal', $idempresa) }}" class="menu-link py-3 active">
                             <span class="menu-icon">
                                 <span class="svg-icon svg-icon-2">
                                     <i class="las la-city fs-1"></i>
                                 </span>
                             </span>
                             <span class="menu-title">Sucursales</span>
+                        </a>
+                    </div>
+                    <div data-kt-menu-placement="right-start" class="menu-item menu-lg-down-accordion" id="view2gestiones">
+                        <a href="{{ route('listar-gestion', $idempresa) }}" class="menu-link py-3">
+                            <span class="menu-icon">
+                                <span class="svg-icon svg-icon-2">
+                                    <i class="lab la-buffer fs-1"></i>
+                                </span>
+                            </span>
+                            <span class="menu-title">Gestiones</span>
                         </a>
                     </div>
                 </div>
@@ -111,7 +130,7 @@
                 </a>
             </div>
             <div class="menu-item">
-                <a class="menu-link" href="" title="" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right" data-bs-original-title="">
+                <a class="menu-link" href="{{ route('lmembresias', $idempresa) }}" title="" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right" data-bs-original-title="">
                     <span class="menu-icon">
                         <i class="las la-ticket-alt fs-1"></i>
                     </span>
@@ -119,23 +138,16 @@
                 </a>
             </div>
             <div class="menu-item">
-                <a class="menu-link" href="" title="" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right" data-bs-original-title="">
+                <a class="menu-link" href="{{ route('listar-permisos', $idempresa) }}" title="" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right" data-bs-original-title="">
                     <span class="menu-icon">
                         <i class="las la-key fs-1"></i>
                     </span>
                     <span class="menu-title">Accesos</span>
                 </a>
             </div>
-            {{-- <div class="menu-item">
-                <a class="menu-link" href="../../demo4/dist/documentation/getting-started/changelog.html">
-                    <span class="menu-icon">
-                        <i class="bi bi-card-text fs-3"></i>
-                    </span>
-                    <span class="menu-title">Changelog v8.0.24</span>
-                </a>
-            </div> --}}
         </div>
     </div>
+
     <div data-kt-menu-trigger="click" data-kt-menu-placement="right-start" class="menu-item py-3">
         <span class="menu-link menu-center" title="" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right" data-bs-original-title="Authentication Pages">
             <span class="menu-icon me-0">
@@ -601,7 +613,7 @@
 												</tr>
 											</thead>
 											<tbody>
-											
+
 											</tbody>
 										</table>
 									</div>
@@ -805,7 +817,7 @@
             </div>
         </div>
 	</div>
-	
+
 @endsection
 
 

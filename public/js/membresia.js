@@ -248,14 +248,19 @@ var KTDatatablesServerSide = function () {
             }
             else{
 
-                //$('#kt_select_TipoUser').val(2).trigger('change');
-                //$('#kt_select_TipoUser').trigger('change');
-                //$('#kt_select_TipoUser').prop('disabled', true);
+               //SelectComboEmpresas
+               var ComboEmpresas = $("#kt_select_ComboEmpresa");
+               ComboEmpresas.children().each(function () {
 
-                //$('[name=ComboEmpresas]').val(idEmpresa).trigger('change');
-                // $('#kt_select_Empresa').val(idEmpresa);
-                // $('#kt_select_Empresa').trigger('change');
-                //$('#kt_select_Empresa').prop('disabled', true);
+                   if (this.value == idEmpresa) {
+
+                       this.remove();
+
+                       var $newOption = $("<option selected='selected'></option>").val(this.value).text(this.text);
+                       ComboEmpresas.append($newOption).trigger('change');
+                       ComboEmpresas.prop('disabled', true);
+                   }
+               });
             }
 
             RangeCalendar.flatpickr().clear();

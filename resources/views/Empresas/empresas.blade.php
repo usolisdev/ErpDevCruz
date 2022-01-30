@@ -88,7 +88,7 @@
                 </div>
             </div> --}}
             <div class="menu-item">
-                <a class="menu-link" href="" title="" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right" data-bs-original-title="">
+                <a class="menu-link" href="{{ route('usuarios') }}" title="" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right" data-bs-original-title="">
                     <span class="menu-icon">
                         <i class="las la-users fs-1"></i>
                     </span>

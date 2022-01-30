@@ -33,7 +33,7 @@ class UsuariosController extends Controller
 			try{
 				if(Auth::user()->TipoUsuario==1){
 					$empresas = DB::table('empresa')
-	                      ->where('empresa.estado','1')
+	                      ->where('empresa.estado','0')
 	                      ->get();
 					$idusuario = Auth::user()->id;
 
@@ -72,11 +72,11 @@ class UsuariosController extends Controller
 				$idem = $request->input('idem');
 				if($idem!=0){
 					$usuarios = DB::table('users')
-							->where([['users.estado','!=','1'],['users.idempresa',$idem]])
+							->where([['users.estado','!=','0'],['users.idempresa',$idem]])
 	                      	->get();
 				}else{
 					$usuarios = DB::table('users')
-							->where('users.estado','!=','1')
+							->where('users.estado','!=','0')
 	                      	->get();
 				}
 	            return response()->json([

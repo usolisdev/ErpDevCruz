@@ -87,7 +87,7 @@
                 </a>
             </div>
             <div class="menu-item">
-                <a class="menu-link" href="" title="" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right" data-bs-original-title="">
+                <a class="menu-link" href="{{ route('lmembresias', $idempresa) }}" title="" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right" data-bs-original-title="">
                     <span class="menu-icon">
                         <i class="las la-ticket-alt fs-1"></i>
                     </span>
@@ -95,7 +95,7 @@
                 </a>
             </div>
             <div class="menu-item">
-                <a class="menu-link" href="" title="" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right" data-bs-original-title="">
+                <a class="menu-link" href="{{ route('listar-permisos', $idempresa) }}" title="" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right" data-bs-original-title="">
                     <span class="menu-icon">
                         <i class="las la-key fs-1"></i>
                     </span>

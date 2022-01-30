@@ -16,7 +16,7 @@
 	    <script src="{{ asset('assets/layouts/layout4/scripts/layout.min.js') }}" type="text/javascript"></script>
 	    <script src="{{ asset('assets/layouts/layout4/scripts/demo.min.js') }}" type="text/javascript"></script>
 	    <script src="{{ asset('assets/layouts/global/scripts/quick-sidebar.min.js') }}" type="text/javascript"></script>
-    
+
 	<script src="{{ asset('js/tablas.js') }}"></script>
 	<script src="{{ asset('js/agenda.js') }}"></script>
 @endsection
@@ -35,15 +35,25 @@
 @section('MenuPrimary')
 
     <div class="menu-item py-3">
-        <a class="menu-link active menu-center" href="" title="Empresas" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+        <a class="menu-link menu-center" href="" title="Empresas" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
             <span class="menu-icon me-0">
                 <i class="las la-home fs-1"></i>
             </span>
         </a>
     </div>
 
+    @if ($idempresa != 0)
+        <div class="menu-item py-3">
+            <a class="menu-link menu-center" href="{{ route('gotomenu', $idempresa) }}" title="DashBoard" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                <span class="menu-icon me-0">
+                    <i class="fas fa-chart-line fs-1"></i>
+                </span>
+            </a>
+        </div>
+    @endif
+
     <div data-kt-menu-trigger="click" data-kt-menu-placement="right-start" class="menu-item py-3">
-        <span class="menu-link menu-center" title="" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right" data-bs-original-title="Gestion">
+        <span class="menu-link active menu-center" title="" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right" data-bs-original-title="Gestion">
             <span class="menu-icon me-0">
                 <i class="bi bi-gear fs-2"></i>
             </span>
@@ -55,7 +65,7 @@
                 </div>
             </div>
              <div class="menu-item" id="viewagendaadmin">
-                <a class="menu-link" href="" title="" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right" data-bs-original-title="">
+                <a class="menu-link active" href="{{ route('Agendaadmin', $idempresa) }}" title="" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right" data-bs-original-title="">
                     <span class="menu-icon">
                         <i class="las la-key fs-1"></i>
                     </span>
@@ -64,7 +74,7 @@
                 </a>
             </div>
             <div class="menu-item">
-                <a class="menu-link" href="" title="" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right" data-bs-original-title="">
+                <a class="menu-link" href="{{ route('usuarios', $idempresa) }}" title="" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right" data-bs-original-title="">
                     <span class="menu-icon">
                         <i class="las la-users fs-1"></i>
                     </span>
@@ -72,7 +82,7 @@
                 </a>
             </div>
             <div class="menu-item">
-                <a class="menu-link" href="" title="" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right" data-bs-original-title="">
+                <a class="menu-link" href="{{ route('lmembresias', $idempresa) }}" title="" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right" data-bs-original-title="">
                     <span class="menu-icon">
                         <i class="las la-ticket-alt fs-1"></i>
                     </span>
@@ -80,7 +90,7 @@
                 </a>
             </div>
             <div class="menu-item">
-                <a class="menu-link" href="{{ route('listar-permisos') }}" title="" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right" data-bs-original-title="">
+                <a class="menu-link" href="{{ route('listar-permisos', $idempresa) }}" title="" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right" data-bs-original-title="">
                     <span class="menu-icon">
                         <i class="las la-key fs-1"></i>
                     </span>
@@ -180,7 +190,7 @@
                             <a class="btn btn-color-gray-600 btn-active btn-active-primary px-6 py-1 rdreplbl" id="crearlblrep">
                                 <input style="display: none;" type="radio" name="options" class="toggle rdrep" data-bs-toggle="tab" id="cambiarrep" value="crear">Cambiar</a>
                         </div>
-                        @endif       
+                        @endif
                         <div class="form-body mb-6">
                             <div class="row mt-6">
                                 <div class="col-md-4 mb-7">

@@ -176,14 +176,14 @@ class PermisosController extends Controller
 				$tipous = DB::table('tipousuario')->get();
 				$tipoac = DB::table('tipodeacceso')->get();
 				$usuarios = DB::table('users')
-							->where('users.estado','!=','1')
+							->where('users.estado','!=','0')
 	                      	->get();
 	            if($idempresa!=0){
 	            	$empresa = Empresa::find($idempresa);
 	        		$EmpresaSigla = $empresa->Sigla;
 	        		$EmpresaNombre = $empresa->Nombre;
 	        		$usuarios = DB::table('users')
-							->where([['users.estado','!=','1'],['users.idempresa',$empresa->id]])
+							->where([['users.estado','!=','0'],['users.idempresa',$empresa->id]])
 	                      	->get();
 	        		$idusuario = Auth::user()->id;
 	        		$access = self::verificacion(5);
@@ -201,7 +201,7 @@ class PermisosController extends Controller
 	            	return view('Permisos.roles',compact('idempresa','EmpresaSigla','idusuario','empresas','tipous','tipoac','idempresa','usuarios','EmpresaNombre','access'));
 	            }else{
 	            	$access="total";
-	            	return view('Permisos.roles',compact('usuarios','empresas','access'));
+	            	return view('Permisos.roles',compact('idempresa','usuarios','empresas','access'));
 	            }
 			}catch(Throwable $e){
 				return response()->json([

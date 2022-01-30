@@ -500,7 +500,7 @@ class EmpresaController extends Controller
 	        	$EmpresaNombre = $empresa->Nombre;
 				$access = self::verificacion(1);
 				if($access=="none"){
-					\Auth::logout();
+					Auth::logout();
 					$errors = [$this->username() => trans('auth.none')];
 					return redirect('/login')
 				            // ->withInput($request->only($this->username(), 'remember'))
@@ -512,7 +512,7 @@ class EmpresaController extends Controller
 				}
 				return view('Empresas.agenda',compact('idempresa','EmpresaSigla','EmpresaNombre','access'));
 
-			}catch(Exception $e){
+			}catch(Throwable $e){
 				return Redirect::back();
 			}
 		}

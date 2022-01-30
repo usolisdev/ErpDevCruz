@@ -8,7 +8,6 @@ var KTDatatablesServerSide = function () {
 
     var idEmpresa = document.querySelector('[name="idempresa"]').value;
 
-
     // Private functions
     var initListarUsuarios = function () {
 
@@ -157,11 +156,13 @@ var KTDatatablesServerSide = function () {
 
          //console.log(ListImgs);
 
-        var t, e, o, n, r, i, b;
+        var t, e, o, n, r, i, b, c, h;
 
         i = new bootstrap.Modal(document.querySelector("#kt_modal_add_usuario")),
         r = document.querySelector("#kt_modal_add_usuario_form"),
         b = document.querySelector("#btnAddusuario"),
+        c = document.querySelector("#kt_select_Empresa"),
+        h = document.querySelector("#kt_select_Sucursal"),
 
         t = r.querySelector("#kt_modal_add_usuario_submit"),
         e = r.querySelector("#kt_modal_add_usuario_cancel"),
@@ -282,11 +283,50 @@ var KTDatatablesServerSide = function () {
             }
         );
 
-        //Select Modal
-        //$("#kt_select_TipoUser").select2();
+        if (idEmpresa == 0) {
+             //Cargar sucursales por empresa
+            $(c).on('change',function(){
+                var idemp = $(c).val();
+                if(idemp!=0){
+                    var data={
+                        IdEmpresa: idemp
+                    };
+                    var urlfinal= urlBase + "sucursales/listadesucursales";
+                    var dataValue = JSON.stringify(data);
+                    $.ajax({
+                        type: "POST",
+                        url: urlfinal,
+                        contentType: "application/json; charset=utf-8",
+                        data: dataValue,
+                        dataType: "json",
+                        success: function (res) {
+                            if(res.tipoMensaje=="success"){
+                                var Sucursales = res.Sucursales
+                                limpiarsucursales();
+                                for(var i=0;i<Sucursales.length;i++){
+                                    $(h).prepend("<option value='"+Sucursales[i].id+"'>"+Sucursales[i].alias +" - "+Sucursales[i].direccion+"</option>");
+                                }
+                            }else{
+                                toastr.error(res.mensaje);
+                            }
+                        // tooltipnow();
+                        },
+                        error: function(res){
+                            toastr.error(res);
+                        }
+                    });
+                }else{
+                    limpiarsucursales();
+                }
+            });
+            function limpiarsucursales(){
+                $(h).html("<option value='0'>sin sucursal</option>");
+            }
+        }
 
+        //Select Modal
         b.addEventListener("click", (function(){
-            //Insert datos entrada
+
             r.querySelector('[name="TitleModal"]').innerText = "Agregar Usuario";
 
             if(idEmpresa==0){
@@ -333,7 +373,6 @@ var KTDatatablesServerSide = function () {
                 //$('#kt_select_Empresa').prop('disabled', true);
             }
 
-
             t.value = "";
             r.reset();
 
@@ -360,7 +399,6 @@ var KTDatatablesServerSide = function () {
             var ComboTipoUser = r.querySelector('[name="ComboTipoUser"]').value;
             var ComboEmpresas = r.querySelector('[name="ComboEmpresas"]').value;
             var ComboSucursales = r.querySelector('[name="ComboSucursales"]').value;
-
 
             var IdRowusuario = "";
             var TipoMensajeSwal = "";

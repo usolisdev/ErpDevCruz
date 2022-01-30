@@ -2,30 +2,31 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Excel;
+use DateTime;
+use App\Cuentas;
 use App\Empresa;
 use App\Gestion;
 use App\Periodo;
-use App\Reporte;
-use App\Cuentas;
-use App\enterprise;
-use App\EmpresaMoneda;
 use App\persona;
-use App\sector_economico;
+use App\Reporte;
 use App\sucursal;
-use App\dosificacion;
-use App\sistemafacturacion;
-use App\tipofacturacion;
-use App\seriemarca;
-use App\puntodefacturacion;
-use DB;
-use Excel;
-use DateTime;
 use Carbon\Carbon;
+use App\enterprise;
+use App\seriemarca;
+use App\dosificacion;
+use App\EmpresaMoneda;
+use App\tipofacturacion;
 use \Milon\Barcode\DNS2D;
+use App\sector_economico;
+use App\puntodefacturacion;
+use App\sistemafacturacion;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Contracts\Encryption\DecryptException;
+use Throwable;
 
 class SucursalController extends Controller
 {
@@ -46,7 +47,7 @@ class SucursalController extends Controller
 						'Sucursales'        => $sucursales
 
 					]);
-			}catch(Exception $e){
+			}catch(Throwable $e){
 				return response()->json([
 					'mensaje'			=> $e,
 					'titulo'			=> "error",
@@ -237,7 +238,7 @@ class SucursalController extends Controller
 		    	    		}else{
 		    	    			$contacto = self::actualizarpersona($persona->id,$nombres,$apellidos,$ci,$nit,$email,$telefono,$celular,$direccion,$fecnac);
 		    	    		}
-		    	    	}		    	    	
+		    	    	}
 		    	    }
 		    	    if($rdcon=="crear"){
 		    	    	if(!empty($ci)){
@@ -321,8 +322,8 @@ class SucursalController extends Controller
 				$gestion=Gestion::find($request->input('IdGestion'));
 	            $Periodo=DB::table('periodo')
 	                        ->where('periodo.IdGestion',$request->input('IdGestion'))
-	                        ->first(); 
-	            $eliminado;                
+	                        ->first();
+	            $eliminado;
 	            if($Periodo==null){
 	            	$eliminado=$gestion->delete();
 	            }
@@ -342,7 +343,7 @@ class SucursalController extends Controller
 						'botonConfirmacion'	=> "ok",
 						'IdGestion'         => $gestion->id
 					]);
-				}     
+				}
 
 			}
 			catch(Exception $e){
@@ -578,8 +579,8 @@ class SucursalController extends Controller
 				$gestion=Gestion::find($request->input('IdGestion'));
 	            $Periodo=DB::table('periodo')
 	                        ->where('periodo.IdGestion',$request->input('IdGestion'))
-	                        ->first(); 
-	            $eliminado;                
+	                        ->first();
+	            $eliminado;
 	            if($Periodo==null){
 	            	$eliminado=$gestion->delete();
 	            }
@@ -599,7 +600,7 @@ class SucursalController extends Controller
 						'botonConfirmacion'	=> "ok",
 						'IdGestion'         => $gestion->id
 					]);
-				}     
+				}
 
 			}
 			catch(Exception $e){
@@ -1117,7 +1118,7 @@ class SucursalController extends Controller
 				}
 				if(!empty($contacto)){
 					if($contacto!=0){
-						$sucursal->idcontacto=$contacto;	
+						$sucursal->idcontacto=$contacto;
 					}
 				}
 				$sucursal->save();
@@ -1145,7 +1146,7 @@ class SucursalController extends Controller
 				}
 				if(!empty($contacto)){
 					if($contacto!=0){
-						$sucursal->idcontacto=$contacto;	
+						$sucursal->idcontacto=$contacto;
 					}
 				}
 				$sucursal->save();
@@ -1215,7 +1216,7 @@ class SucursalController extends Controller
 				$pf->alias=$alias;
 				$pf->estado=$estado;
 				$pf->idsucursal=$idsucursal;
-				$pf->save();	
+				$pf->save();
 				return $pf->id;
 			}catch(Exception $e){
 				return -100;
@@ -1400,7 +1401,7 @@ class SucursalController extends Controller
 	          $membresia = DB::table('membresia')
 	                      ->where([['membresia.idempresa',$idempresa],['membresia.estado',1]])
 	                      ->first();
-	          
+
 	          $date = DateTime::createFromFormat('y-m-d H:i:s',date('y-m-d H:i:s', strtotime($membresia->fechafin)));
 	          $fechafin=$hoy->diff($date)->format("%Y-%M-%D %H:%I:%S");
 	          if($hoy<$date){
@@ -1432,13 +1433,13 @@ class SucursalController extends Controller
 	        			$res="consulta";
 	            	}
 	            }
-	          } 
+	          }
 	        }
 	        //dd($res);
 	        return $res;
 	      }catch(Exception $e){
 	        return "none";
-	      } 
+	      }
 	    }
 
 	    public function username() {
