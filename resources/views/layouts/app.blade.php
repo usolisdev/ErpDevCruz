@@ -250,7 +250,7 @@
 
     <!--begin::Javascript-->
 		<!--begin::Global Javascript Bundle(used by all pages)-->
-		
+		<!-- <script async data-id="five-server" src="http://localhost:8000/fiveserver.js"></script> -->
 		<script src="{{ asset('assets/plugins/global/plugins.bundle.js') }}"></script>
 		<script src="{{ asset('assets/js/scripts.bundle.js') }}"></script>
 		<script src = "http://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js" ></script>

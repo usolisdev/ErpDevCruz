@@ -25,7 +25,7 @@
     <h1 class="text-dark fw-bolder my-1 fs-3 lh-1">Listado de Empresas</h1>
     <!--begin::Breadcrumb-->
     <ul class="breadcrumb fw-bold fs-8 my-1">
-        <li class="breadcrumb-item text-dark">Empresas</li>
+        <li class="breadcrumb-item text-dark">Empresa</li>
         {{-- <li class="breadcrumb-item text-muted">Entradas</li>
         <li class="breadcrumb-item text-muted">Multimedia</li> --}}
     </ul>

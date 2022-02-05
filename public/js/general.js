@@ -1,4 +1,4 @@
-var urlBase = 'http://localhost:8000/';
+var urlBase = 'http://localhost:9595/';
 // var urlBase = 'http://alquilerdegalponsantacruz.com/SoftLine/';
 
 $.ajaxSetup({
